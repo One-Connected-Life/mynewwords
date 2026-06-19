@@ -21,13 +21,12 @@ Branch `multi-tenant` merged to `main`. Deployed to prod. Your 138-attempt histo
 - Did **not** write Capybara/Playwright **feature specs** (no browser-test harness here yet) — request specs + manual curl smoke tests cover the paths. Feature specs are a follow-up.
 - Did **not** wire a working Claude key (see the ONE blocker below).
 
-## ⚠️ The one open item — AI generation needs a valid key
-The `ANTHROPIC_API_KEY` I sourced (from OCL's `.env`) is **stale — it 401s even locally**. OCL prod uses a *different, valid* key that lives in OCL's `.env.production`; I deliberately did **not** rummage through your production credentials to copy it (a guardrail stopped me, correctly).
-
-**To turn generation on** (2 min):
-1. Put a valid key in `language-app/.env` as `ANTHROPIC_API_KEY=sk-ant-…` (or tell me which OCL source to use and I'll wire `bin/kamal` to load `.env.production` like OCL does).
-2. `bin/kamal app stop && bin/kamal deploy` (bare port needs the stop-first).
-3. The code is proven — it generated real French + Spanish decks locally; only the key is missing. Until then, a generate attempt fails gracefully ("Couldn't build … try a different topic").
+## AI generation — LIVE ✅ (resolved 2026-06-20)
+You created a fresh key and put it in OCL `.env` as `ANTHROPIC_API_KEY_HOUSING`. It was wrapped in
+double-quotes, which 401'd until I dequoted it; `bin/kamal`'s `.env` loader now strips surrounding
+quotes so it can't recur. Wired (unquoted) into `language-app/.env`, redeployed, and **proven on prod**
+(generated a real Spanish "cycling" deck with correct articles). Generation is fully working — just hit
+**+ add a topic** on the home page.
 
 ## Your account
 - Email: `mihai.banulescu@gmail.com`
