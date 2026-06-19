@@ -1,6 +1,11 @@
 <% content_for :title, "#{current_user.target_language_name} drill" %>
 <% target = current_user.target_language %>
 <% source = current_user.source_language %>
+<% pending = @decks.select { |d| d.status == "pending" } %>
+
+<% if pending.any? %>
+  <% content_for :head do %><meta http-equiv="refresh" content="5"><% end %>
+<% end %>
 
 <header class="mb-10 flex items-end justify-between gap-4">
   <div>
@@ -10,16 +15,22 @@
   <%= link_to "Your words →", stats_path, class: "shrink-0 text-xs text-gray-500 hover:underline dark:text-gray-400" %>
 </header>
 
-<% if @decks.none? || @word_count.zero? %>
+<% if pending.any? %>
+  <div class="mb-6 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-700 dark:bg-amber-950/30 dark:text-amber-200">
+    ⏳ Generating <%= pending.map(&:name).to_sentence %>… this page refreshes itself.
+  </div>
+<% end %>
+
+<% if @word_count.zero? && pending.none? %>
   <div class="rounded-lg border border-gray-300 bg-white px-5 py-6 text-center dark:border-gray-700 dark:bg-gray-900">
     <p class="text-sm text-gray-600 dark:text-gray-300">No words yet.</p>
     <p class="mx-auto mt-1 max-w-sm text-xs text-gray-500 dark:text-gray-400">
-      Pick a few topics and we'll build a <%= current_user.target_language_name %> deck for you.
+      Pick a topic and we'll build a <%= current_user.target_language_name %> deck for you.
     </p>
     <%= link_to "Create your first deck", new_deck_path,
           class: "mt-5 inline-block rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-white" %>
   </div>
-<% else %>
+<% elsif @word_count.positive? %>
   <% if @miss_counts.any? %>
     <div class="mb-4 flex items-center justify-between gap-4 rounded-lg border border-gray-200 border-l-4 border-l-rose-400 bg-white px-4 py-4 dark:border-gray-700 dark:border-l-rose-400 dark:bg-gray-900">
       <div>
@@ -37,8 +48,7 @@
 
   <div class="mb-8 flex items-center justify-between gap-4 rounded-lg border border-gray-300 bg-white px-4 py-4 dark:border-gray-700 dark:bg-gray-900">
     <div>
-      <%= link_to "All words", play_path(deck: "all", from: target, to: source),
-            class: "text-base font-semibold hover:underline" %>
+      <%= link_to "All words", play_path(deck: "all", from: target, to: source), class: "text-base font-semibold hover:underline" %>
       <p class="text-xs text-gray-500 dark:text-gray-400">every word, shuffled · <%= pluralize(@word_count, "word") %></p>
     </div>
     <div class="flex items-center gap-2 text-xs">
@@ -56,13 +66,12 @@
 
   <ul class="divide-y divide-gray-200 border-y border-gray-200 dark:divide-gray-800 dark:border-gray-800">
     <% @decks.each do |deck| %>
-      <% next if deck.terms.empty? %>
+      <% next unless deck.status != "pending" && deck.terms.any? %>
       <li class="flex items-center justify-between gap-4 py-4">
         <div>
-          <%= link_to deck.name, play_path(deck: deck.slug, from: target, to: source),
-                class: "text-base font-medium hover:underline" %>
+          <%= link_to deck.name, play_path(deck: deck.slug, from: target, to: source), class: "text-base font-medium hover:underline" %>
           <% unit = deck.terms.exists?(kind: "sentence") ? "sentence" : "word" %>
-          <p class="text-xs text-gray-500 dark:text-gray-400"><%= pluralize(deck.terms.size, unit) %></p>
+          <p class="text-xs text-gray-500 dark:text-gray-400"><%= pluralize(deck.terms.size, unit) %><%= " · #{deck.topic}" if deck.topic.present? %></p>
         </div>
         <div class="flex items-center gap-2 text-xs">
           <%= link_to "#{target.upcase} → #{source.upcase}", play_path(deck: deck.slug, from: target, to: source),

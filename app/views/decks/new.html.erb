@@ -1,0 +1,23 @@
+<% content_for :title, "New deck" %>
+
+<div class="mx-auto max-w-sm">
+  <%= link_to "← decks", root_path, class: "text-xs text-gray-500 hover:underline dark:text-gray-400" %>
+  <h1 class="mt-1 text-2xl font-semibold tracking-tight">New deck</h1>
+  <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+    Name a topic — we'll build <%= current_user.target_language_name %> vocabulary for it.
+  </p>
+
+  <%= form_with model: @deck, url: decks_path, class: "mt-6 space-y-4" do |f| %>
+    <div>
+      <%= f.label :topic, "Topic", class: "block text-xs font-medium text-gray-600 dark:text-gray-300" %>
+      <%= f.text_field :topic, autofocus: true, required: true,
+            placeholder: "e.g. cooking, the doctor's office, cycling", class: "mt-1 #{field_classes}" %>
+    </div>
+    <%= f.submit "Generate deck", class: primary_button_classes %>
+  <% end %>
+
+  <p class="mt-4 text-xs text-gray-400">
+    Ideas: groceries · job interview · train travel · small talk · the gym · legal terms
+  </p>
+  <p class="mt-6 text-xs text-gray-400"><%= pluralize(current_user.generations_left, "generation") %> left.</p>
+</div>

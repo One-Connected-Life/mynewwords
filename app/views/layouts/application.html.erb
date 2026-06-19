@@ -35,6 +35,16 @@
         </div>
       </nav>
     <% end %>
+    <% if notice || alert %>
+      <div class="mx-auto max-w-2xl px-5 pt-4">
+        <% if notice %>
+          <p class="rounded-md border border-emerald-300 bg-emerald-50 px-3 py-2 text-sm text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300"><%= notice %></p>
+        <% end %>
+        <% if alert %>
+          <p class="rounded-md border border-rose-300 bg-rose-50 px-3 py-2 text-sm text-rose-700 dark:border-rose-800 dark:bg-rose-950/40 dark:text-rose-300"><%= alert %></p>
+        <% end %>
+      </div>
+    <% end %>
     <main class="mx-auto max-w-2xl px-5 py-10 sm:py-16">
       <%= yield %>
     </main>

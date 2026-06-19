@@ -35,7 +35,11 @@ class Translation < ApplicationRecord
   end
 
   # "het brood" when an article is set, otherwise just the word.
+  # Elided articles (French l', d') attach with no space: "l'ingrédient".
   def with_article
-    article.present? ? "#{article} #{text}" : text
+    return text if article.blank?
+
+    separator = article.end_with?("'") ? "" : " "
+    "#{article}#{separator}#{text}"
   end
 end
