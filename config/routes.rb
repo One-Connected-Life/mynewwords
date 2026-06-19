@@ -11,4 +11,7 @@ Rails.application.routes.draw do
 
   # Stable per-word page — reload to re-test pronunciation, see all languages.
   resources :terms, only: [:show]
+
+  # Every word + your attempt history (right/wrong) and status.
+  get "stats", to: "stats#index"
 end

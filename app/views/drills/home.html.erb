@@ -1,8 +1,11 @@
 <% content_for :title, "Dutch drill" %>
 
-<header class="mb-10">
-  <h1 class="text-2xl font-semibold tracking-tight">Dutch drill</h1>
-  <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Your vocabulary, your pace. Pick a deck.</p>
+<header class="mb-10 flex items-end justify-between gap-4">
+  <div>
+    <h1 class="text-2xl font-semibold tracking-tight">Dutch drill</h1>
+    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Your vocabulary, your pace. Pick a deck.</p>
+  </div>
+  <%= link_to "Your words →", stats_path, class: "shrink-0 text-xs text-gray-500 hover:underline dark:text-gray-400" %>
 </header>
 
 <% if @miss_counts.any? %>
