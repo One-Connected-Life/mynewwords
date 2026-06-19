@@ -1,0 +1,52 @@
+<% content_for :title, "#{@deck.name} — drill" %>
+
+<% if @cards.empty? %>
+  <p class="text-sm text-gray-500 dark:text-gray-400">
+    No <%= Translation::LANGUAGES[@from] %> → <%= Translation::LANGUAGES[@to] %> pairs in this deck yet.
+    <%= link_to "Back to decks", root_path, class: "underline" %>
+  </p>
+<% else %>
+  <div data-controller="drill" data-drill-cards-value="<%= @cards.to_json %>">
+    <header class="mb-8 flex items-start justify-between">
+      <div>
+        <%= link_to "← decks", root_path, class: "text-xs text-gray-500 hover:underline dark:text-gray-400" %>
+        <h1 class="mt-1 text-lg font-semibold"><%= @deck.name %></h1>
+      </div>
+      <div class="text-right text-xs text-gray-500 dark:text-gray-400">
+        <div><%= Translation::LANGUAGES[@from] %> → <%= Translation::LANGUAGES[@to] %></div>
+        <%= link_to "⇄ swap", play_path(deck: @deck.slug, from: @to, to: @from), class: "hover:underline" %>
+      </div>
+    </header>
+
+    <div data-drill-target="card">
+      <div class="mb-6 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+        <span data-drill-target="progress"></span>
+        <span data-drill-target="score"></span>
+      </div>
+
+      <p class="text-xs uppercase tracking-wide text-gray-400"><%= Translation::LANGUAGES[@from] %></p>
+      <p data-drill-target="prompt" class="mt-1 text-3xl font-semibold tracking-tight"></p>
+
+      <input data-drill-target="input" data-action="keydown->drill#keydown"
+             type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+             placeholder="type the <%= Translation::LANGUAGES[@to].downcase %>…"
+             class="mt-6 w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-lg outline-none focus:border-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder-gray-500 dark:focus:border-gray-300">
+
+      <div class="mt-4 flex items-baseline gap-3">
+        <span data-drill-target="feedback" class="text-sm"></span>
+        <span data-drill-target="answer" class="invisible text-sm text-gray-500 dark:text-gray-400"></span>
+      </div>
+
+      <p class="mt-8 text-xs text-gray-400">Enter to check · Enter again for next</p>
+    </div>
+
+    <div data-drill-target="summary" class="hidden text-center">
+      <p class="text-sm text-gray-500 dark:text-gray-400">Done.</p>
+      <p data-drill-target="summaryText" class="mt-2 text-2xl font-semibold"></p>
+      <button data-action="drill#restart"
+              class="mt-6 rounded-lg border border-gray-300 px-4 py-2 text-sm hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800">
+        Again
+      </button>
+    </div>
+  </div>
+<% end %>

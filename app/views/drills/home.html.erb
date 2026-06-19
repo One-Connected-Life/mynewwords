@@ -1,0 +1,24 @@
+<% content_for :title, "Dutch drill" %>
+
+<header class="mb-10">
+  <h1 class="text-2xl font-semibold tracking-tight">Dutch drill</h1>
+  <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Your vocabulary, your pace. Pick a deck.</p>
+</header>
+
+<ul class="divide-y divide-gray-200 border-y border-gray-200 dark:divide-gray-800 dark:border-gray-800">
+  <% @decks.each do |deck| %>
+    <li class="flex items-center justify-between gap-4 py-4">
+      <div>
+        <%= link_to deck.name, play_path(deck: deck.slug, from: "nl", to: "en"),
+              class: "text-base font-medium hover:underline" %>
+        <p class="text-xs text-gray-500 dark:text-gray-400"><%= pluralize(deck.terms.size, "word") %></p>
+      </div>
+      <div class="flex items-center gap-2 text-xs">
+        <%= link_to "NL → EN", play_path(deck: deck.slug, from: "nl", to: "en"),
+              class: "rounded-md border border-gray-300 px-2.5 py-1 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800" %>
+        <%= link_to "EN → NL", play_path(deck: deck.slug, from: "en", to: "nl"),
+              class: "rounded-md border border-gray-300 px-2.5 py-1 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800" %>
+      </div>
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,925 @@
+# Vocabulary seed for the Dutch language-learning drill app.
+# Each entry: one concept, translations in 7 languages.
+# en = canonical label. nl = { text, article } where article is de/het/null.
+# es/fr/it/ro/ru are best-effort dictionary forms, not yet surfaced.
+# Lines tagged "# VERIFY" need a human/native check.
+
+# ============================================================
+# Groceries & Food (30)
+# ============================================================
+
+- deck: Groceries & Food
+  en: bread
+  nl: { text: brood, article: het }
+  es: pan
+  fr: pain
+  it: pane
+  ro: pâine
+  ru: хлеб
+
+- deck: Groceries & Food
+  en: milk
+  nl: { text: melk, article: de }
+  es: leche
+  fr: lait
+  it: latte
+  ro: lapte
+  ru: молоко
+
+- deck: Groceries & Food
+  en: cheese
+  nl: { text: kaas, article: de }
+  es: queso
+  fr: fromage
+  it: formaggio
+  ro: brânză
+  ru: сыр
+
+- deck: Groceries & Food
+  en: apple
+  nl: { text: appel, article: de }
+  es: manzana
+  fr: pomme
+  it: mela
+  ro: măr
+  ru: яблоко
+
+- deck: Groceries & Food
+  en: water
+  nl: { text: water, article: het }
+  es: agua
+  fr: eau
+  it: acqua
+  ro: apă
+  ru: вода
+
+- deck: Groceries & Food
+  en: coffee
+  nl: { text: koffie, article: de }
+  es: café
+  fr: café
+  it: caffè
+  ro: cafea
+  ru: кофе
+
+- deck: Groceries & Food
+  en: tea
+  nl: { text: thee, article: de }
+  es: té
+  fr: thé
+  it: tè
+  ro: ceai
+  ru: чай
+
+- deck: Groceries & Food
+  en: sugar
+  nl: { text: suiker, article: de }
+  es: azúcar
+  fr: sucre
+  it: zucchero
+  ro: zahăr
+  ru: сахар
+
+- deck: Groceries & Food
+  en: salt
+  nl: { text: zout, article: het }
+  es: sal
+  fr: sel
+  it: sale
+  ro: sare
+  ru: соль
+
+- deck: Groceries & Food
+  en: egg
+  nl: { text: ei, article: het }
+  es: huevo
+  fr: œuf
+  it: uovo
+  ro: ou
+  ru: яйцо
+
+- deck: Groceries & Food
+  en: butter
+  nl: { text: boter, article: de }
+  es: mantequilla
+  fr: beurre
+  it: burro
+  ro: unt
+  ru: масло
+
+- deck: Groceries & Food
+  en: meat
+  nl: { text: vlees, article: het }
+  es: carne
+  fr: viande
+  it: carne
+  ro: carne
+  ru: мясо
+
+- deck: Groceries & Food
+  en: fish
+  nl: { text: vis, article: de }
+  es: pescado
+  fr: poisson
+  it: pesce
+  ro: pește
+  ru: рыба
+
+- deck: Groceries & Food
+  en: chicken
+  nl: { text: kip, article: de }
+  es: pollo
+  fr: poulet
+  it: pollo
+  ro: pui
+  ru: курица
+
+- deck: Groceries & Food
+  en: rice
+  nl: { text: rijst, article: de }
+  es: arroz
+  fr: riz
+  it: riso
+  ro: orez
+  ru: рис
+
+- deck: Groceries & Food
+  en: potato
+  nl: { text: aardappel, article: de }
+  es: patata
+  fr: pomme de terre
+  it: patata
+  ro: cartof
+  ru: картофель
+
+- deck: Groceries & Food
+  en: tomato
+  nl: { text: tomaat, article: de }
+  es: tomate
+  fr: tomate
+  it: pomodoro
+  ro: roșie
+  ru: помидор
+
+- deck: Groceries & Food
+  en: onion
+  nl: { text: ui, article: de }
+  es: cebolla
+  fr: oignon
+  it: cipolla
+  ro: ceapă
+  ru: лук
+
+- deck: Groceries & Food
+  en: vegetable
+  nl: { text: groente, article: de }
+  es: verdura
+  fr: légume
+  it: verdura
+  ro: legumă
+  ru: овощ
+
+- deck: Groceries & Food
+  en: fruit
+  nl: { text: fruit, article: het }
+  es: fruta
+  fr: fruit
+  it: frutta
+  ro: fruct
+  ru: фрукт
+
+- deck: Groceries & Food
+  en: banana
+  nl: { text: banaan, article: de }
+  es: plátano
+  fr: banane
+  it: banana
+  ro: banană
+  ru: банан
+
+- deck: Groceries & Food
+  en: orange
+  nl: { text: sinaasappel, article: de }
+  es: naranja
+  fr: orange
+  it: arancia
+  ro: portocală
+  ru: апельсин
+
+- deck: Groceries & Food
+  en: juice
+  nl: { text: sap, article: het }
+  es: zumo
+  fr: jus
+  it: succo
+  ro: suc
+  ru: сок
+
+- deck: Groceries & Food
+  en: beer
+  nl: { text: bier, article: het }
+  es: cerveza
+  fr: bière
+  it: birra
+  ro: bere
+  ru: пиво
+
+- deck: Groceries & Food
+  en: wine
+  nl: { text: wijn, article: de }
+  es: vino
+  fr: vin
+  it: vino
+  ro: vin
+  ru: вино
+
+- deck: Groceries & Food
+  en: chocolate
+  nl: { text: chocolade, article: de }
+  es: chocolate
+  fr: chocolat
+  it: cioccolato
+  ro: ciocolată
+  ru: шоколад
+
+- deck: Groceries & Food
+  en: soup
+  nl: { text: soep, article: de }
+  es: sopa
+  fr: soupe
+  it: zuppa
+  ro: supă
+  ru: суп
+
+- deck: Groceries & Food
+  en: breakfast
+  nl: { text: ontbijt, article: het }
+  es: desayuno
+  fr: petit-déjeuner
+  it: colazione
+  ro: mic dejun
+  ru: завтрак
+
+- deck: Groceries & Food
+  en: supermarket
+  nl: { text: supermarkt, article: de }
+  es: supermercado
+  fr: supermarché
+  it: supermercato
+  ro: supermarket
+  ru: супермаркет
+
+- deck: Groceries & Food
+  en: bag
+  nl: { text: tas, article: de }
+  es: bolsa
+  fr: sac
+  it: borsa
+  ro: pungă # VERIFY
+  ru: сумка
+
+# ============================================================
+# Everyday & Survival (30)
+# ============================================================
+
+- deck: Everyday & Survival
+  en: hello
+  nl: { text: hallo, article: null }
+  es: hola
+  fr: bonjour
+  it: ciao
+  ro: salut
+  ru: привет
+
+- deck: Everyday & Survival
+  en: goodbye
+  nl: { text: tot ziens, article: null }
+  es: adiós
+  fr: au revoir
+  it: arrivederci
+  ro: la revedere
+  ru: до свидания
+
+- deck: Everyday & Survival
+  en: thank you
+  nl: { text: dank je wel, article: null }
+  es: gracias
+  fr: merci
+  it: grazie
+  ro: mulțumesc
+  ru: спасибо
+
+- deck: Everyday & Survival
+  en: please
+  nl: { text: alstublieft, article: null }
+  es: por favor
+  fr: s'il vous plaît
+  it: per favore
+  ro: vă rog
+  ru: пожалуйста
+
+- deck: Everyday & Survival
+  en: yes
+  nl: { text: ja, article: null }
+  es: sí
+  fr: oui
+  it: sì
+  ro: da
+  ru: да
+
+- deck: Everyday & Survival
+  en: no
+  nl: { text: nee, article: null }
+  es: no
+  fr: non
+  it: "no"
+  ro: nu
+  ru: нет
+
+- deck: Everyday & Survival
+  en: sorry
+  nl: { text: sorry, article: null }
+  es: perdón
+  fr: pardon
+  it: scusa
+  ro: scuze
+  ru: извините
+
+- deck: Everyday & Survival
+  en: excuse me
+  nl: { text: pardon, article: null }
+  es: disculpe
+  fr: excusez-moi
+  it: mi scusi
+  ro: scuzați-mă
+  ru: простите
+
+- deck: Everyday & Survival
+  en: where
+  nl: { text: waar, article: null }
+  es: dónde
+  fr: où
+  it: dove
+  ro: unde
+  ru: где
+
+- deck: Everyday & Survival
+  en: when
+  nl: { text: wanneer, article: null }
+  es: cuándo
+  fr: quand
+  it: quando
+  ro: când
+  ru: когда
+
+- deck: Everyday & Survival
+  en: how much
+  nl: { text: hoeveel, article: null }
+  es: cuánto
+  fr: combien
+  it: quanto
+  ro: cât
+  ru: сколько
+
+- deck: Everyday & Survival
+  en: today
+  nl: { text: vandaag, article: null }
+  es: hoy
+  fr: aujourd'hui
+  it: oggi
+  ro: astăzi
+  ru: сегодня
+
+- deck: Everyday & Survival
+  en: tomorrow
+  nl: { text: morgen, article: null }
+  es: mañana
+  fr: demain
+  it: domani
+  ro: mâine
+  ru: завтра
+
+- deck: Everyday & Survival
+  en: yesterday
+  nl: { text: gisteren, article: null }
+  es: ayer
+  fr: hier
+  it: ieri
+  ro: ieri
+  ru: вчера
+
+- deck: Everyday & Survival
+  en: money
+  nl: { text: geld, article: het }
+  es: dinero
+  fr: argent
+  it: denaro
+  ro: bani
+  ru: деньги
+
+- deck: Everyday & Survival
+  en: help
+  nl: { text: hulp, article: de }
+  es: ayuda
+  fr: aide
+  it: aiuto
+  ro: ajutor
+  ru: помощь
+
+- deck: Everyday & Survival
+  en: toilet
+  nl: { text: toilet, article: het }
+  es: baño
+  fr: toilettes
+  it: bagno
+  ro: toaletă
+  ru: туалет
+
+- deck: Everyday & Survival
+  en: house
+  nl: { text: huis, article: het }
+  es: casa
+  fr: maison
+  it: casa
+  ro: casă
+  ru: дом
+
+- deck: Everyday & Survival
+  en: door
+  nl: { text: deur, article: de }
+  es: puerta
+  fr: porte
+  it: porta
+  ro: ușă
+  ru: дверь
+
+- deck: Everyday & Survival
+  en: street
+  nl: { text: straat, article: de }
+  es: calle
+  fr: rue
+  it: strada
+  ro: stradă
+  ru: улица
+
+- deck: Everyday & Survival
+  en: day
+  nl: { text: dag, article: de }
+  es: día
+  fr: jour
+  it: giorno
+  ro: zi
+  ru: день
+
+- deck: Everyday & Survival
+  en: night
+  nl: { text: nacht, article: de }
+  es: noche
+  fr: nuit
+  it: notte
+  ro: noapte
+  ru: ночь
+
+- deck: Everyday & Survival
+  en: time
+  nl: { text: tijd, article: de }
+  es: tiempo
+  fr: temps
+  it: tempo
+  ro: timp
+  ru: время
+
+- deck: Everyday & Survival
+  en: man
+  nl: { text: man, article: de }
+  es: hombre
+  fr: homme
+  it: uomo
+  ro: bărbat
+  ru: мужчина
+
+- deck: Everyday & Survival
+  en: woman
+  nl: { text: vrouw, article: de }
+  es: mujer
+  fr: femme
+  it: donna
+  ro: femeie
+  ru: женщина
+
+- deck: Everyday & Survival
+  en: child
+  nl: { text: kind, article: het }
+  es: niño
+  fr: enfant
+  it: bambino
+  ro: copil
+  ru: ребёнок
+
+- deck: Everyday & Survival
+  en: friend
+  nl: { text: vriend, article: de }
+  es: amigo
+  fr: ami
+  it: amico
+  ro: prieten
+  ru: друг
+
+- deck: Everyday & Survival
+  en: doctor
+  nl: { text: dokter, article: de }
+  es: médico
+  fr: médecin
+  it: medico
+  ro: medic
+  ru: врач
+
+- deck: Everyday & Survival
+  en: good
+  nl: { text: goed, article: null }
+  es: bueno
+  fr: bon
+  it: buono
+  ro: bun
+  ru: хороший
+
+- deck: Everyday & Survival
+  en: big
+  nl: { text: groot, article: null }
+  es: grande
+  fr: grand
+  it: grande
+  ro: mare
+  ru: большой
+
+# ============================================================
+# Road & Signs (15)
+# ============================================================
+
+- deck: Road & Signs
+  en: exit
+  nl: { text: uitgang, article: de }
+  es: salida
+  fr: sortie
+  it: uscita
+  ro: ieșire
+  ru: выход
+
+- deck: Road & Signs
+  en: entrance
+  nl: { text: ingang, article: de }
+  es: entrada
+  fr: entrée
+  it: entrata
+  ro: intrare
+  ru: вход
+
+- deck: Road & Signs
+  en: stop
+  nl: { text: stop, article: null }
+  es: alto
+  fr: arrêt
+  it: stop
+  ro: stop
+  ru: стоп
+
+- deck: Road & Signs
+  en: danger
+  nl: { text: gevaar, article: het }
+  es: peligro
+  fr: danger
+  it: pericolo
+  ro: pericol
+  ru: опасность
+
+- deck: Road & Signs
+  en: detour
+  nl: { text: omleiding, article: de }
+  es: desvío
+  fr: déviation
+  it: deviazione
+  ro: ocolire # VERIFY
+  ru: объезд
+
+- deck: Road & Signs
+  en: parking
+  nl: { text: parkeren, article: null }
+  es: aparcamiento
+  fr: parking
+  it: parcheggio
+  ro: parcare
+  ru: парковка
+
+- deck: Road & Signs
+  en: one-way
+  nl: { text: eenrichtingsverkeer, article: het }
+  es: sentido único
+  fr: sens unique
+  it: senso unico
+  ro: sens unic
+  ru: одностороннее движение
+
+- deck: Road & Signs
+  en: road
+  nl: { text: weg, article: de }
+  es: carretera
+  fr: route
+  it: strada
+  ro: drum
+  ru: дорога
+
+- deck: Road & Signs
+  en: traffic light
+  nl: { text: verkeerslicht, article: het }
+  es: semáforo
+  fr: feu de circulation
+  it: semaforo
+  ro: semafor
+  ru: светофор
+
+- deck: Road & Signs
+  en: bridge
+  nl: { text: brug, article: de }
+  es: puente
+  fr: pont
+  it: ponte
+  ro: pod
+  ru: мост
+
+- deck: Road & Signs
+  en: railway crossing
+  nl: { text: spoorwegovergang, article: de }
+  es: paso a nivel
+  fr: passage à niveau
+  it: passaggio a livello
+  ro: trecere la nivel cu calea ferată # VERIFY
+  ru: железнодорожный переезд
+
+- deck: Road & Signs
+  en: speed limit
+  nl: { text: maximumsnelheid, article: de }
+  es: límite de velocidad
+  fr: limitation de vitesse
+  it: limite di velocità
+  ro: limită de viteză
+  ru: ограничение скорости
+
+- deck: Road & Signs
+  en: no entry
+  nl: { text: verboden toegang, article: null }
+  es: prohibido el paso
+  fr: accès interdit
+  it: accesso vietato
+  ro: accesul interzis
+  ru: проезд запрещён
+
+- deck: Road & Signs
+  en: pedestrian
+  nl: { text: voetganger, article: de }
+  es: peatón
+  fr: piéton
+  it: pedone
+  ro: pieton
+  ru: пешеход
+
+- deck: Road & Signs
+  en: roundabout
+  nl: { text: rotonde, article: de }
+  es: rotonda
+  fr: rond-point
+  it: rotatoria
+  ro: sens giratoriu
+  ru: кольцевая развязка
+
+# ============================================================
+# Work & Technical (15)
+# ============================================================
+
+- deck: Work & Technical
+  en: meeting
+  nl: { text: vergadering, article: de }
+  es: reunión
+  fr: réunion
+  it: riunione
+  ro: ședință
+  ru: совещание
+
+- deck: Work & Technical
+  en: deadline
+  nl: { text: deadline, article: de }
+  es: fecha límite
+  fr: échéance
+  it: scadenza
+  ro: termen limită
+  ru: крайний срок
+
+- deck: Work & Technical
+  en: file
+  nl: { text: bestand, article: het }
+  es: archivo
+  fr: fichier
+  it: file
+  ro: fișier
+  ru: файл
+
+- deck: Work & Technical
+  en: server
+  nl: { text: server, article: de }
+  es: servidor
+  fr: serveur
+  it: server
+  ro: server
+  ru: сервер
+
+- deck: Work & Technical
+  en: password
+  nl: { text: wachtwoord, article: het }
+  es: contraseña
+  fr: mot de passe
+  it: password
+  ro: parolă
+  ru: пароль
+
+- deck: Work & Technical
+  en: deploy
+  nl: { text: uitrollen, article: null } # VERIFY
+  es: desplegar
+  fr: déployer
+  it: distribuire # VERIFY
+  ro: a implementa # VERIFY
+  ru: развернуть
+
+- deck: Work & Technical
+  en: schedule
+  nl: { text: planning, article: de }
+  es: horario
+  fr: emploi du temps
+  it: orario
+  ro: program
+  ru: расписание
+
+- deck: Work & Technical
+  en: computer
+  nl: { text: computer, article: de }
+  es: ordenador
+  fr: ordinateur
+  it: computer
+  ro: calculator
+  ru: компьютер
+
+- deck: Work & Technical
+  en: screen
+  nl: { text: scherm, article: het }
+  es: pantalla
+  fr: écran
+  it: schermo
+  ro: ecran
+  ru: экран
+
+- deck: Work & Technical
+  en: keyboard
+  nl: { text: toetsenbord, article: het }
+  es: teclado
+  fr: clavier
+  it: tastiera
+  ro: tastatură
+  ru: клавиатура
+
+- deck: Work & Technical
+  en: network
+  nl: { text: netwerk, article: het }
+  es: red
+  fr: réseau
+  it: rete
+  ro: rețea
+  ru: сеть
+
+- deck: Work & Technical
+  en: email
+  nl: { text: e-mail, article: de }
+  es: correo electrónico
+  fr: courriel
+  it: email
+  ro: e-mail
+  ru: электронная почта
+
+- deck: Work & Technical
+  en: report
+  nl: { text: rapport, article: het }
+  es: informe
+  fr: rapport
+  it: rapporto
+  ro: raport
+  ru: отчёт
+
+- deck: Work & Technical
+  en: project
+  nl: { text: project, article: het }
+  es: proyecto
+  fr: projet
+  it: progetto
+  ro: proiect
+  ru: проект
+
+- deck: Work & Technical
+  en: colleague
+  nl: { text: collega, article: de }
+  es: colega
+  fr: collègue
+  it: collega
+  ro: coleg
+  ru: коллега
+
+# ============================================================
+# Legalese (10)
+# ============================================================
+
+- deck: Legalese
+  en: contract
+  nl: { text: contract, article: het }
+  es: contrato
+  fr: contrat
+  it: contratto
+  ro: contract
+  ru: договор
+
+- deck: Legalese
+  en: signature
+  nl: { text: handtekening, article: de }
+  es: firma
+  fr: signature
+  it: firma
+  ro: semnătură
+  ru: подпись
+
+- deck: Legalese
+  en: landlord
+  nl: { text: verhuurder, article: de }
+  es: arrendador
+  fr: propriétaire
+  it: locatore
+  ro: proprietar
+  ru: арендодатель
+
+- deck: Legalese
+  en: tenant
+  nl: { text: huurder, article: de }
+  es: inquilino
+  fr: locataire
+  it: inquilino
+  ro: chiriaș
+  ru: арендатор
+
+- deck: Legalese
+  en: lease
+  nl: { text: huurcontract, article: het }
+  es: contrato de arrendamiento
+  fr: bail
+  it: contratto di locazione
+  ro: contract de închiriere
+  ru: договор аренды
+
+- deck: Legalese
+  en: liability
+  nl: { text: aansprakelijkheid, article: de }
+  es: responsabilidad
+  fr: responsabilité
+  it: responsabilità
+  ro: răspundere
+  ru: ответственность
+
+- deck: Legalese
+  en: notice
+  nl: { text: opzegging, article: de } # VERIFY
+  es: notificación
+  fr: préavis
+  it: preavviso
+  ro: notificare
+  ru: уведомление
+
+- deck: Legalese
+  en: deposit
+  nl: { text: borg, article: de }
+  es: depósito
+  fr: caution
+  it: deposito
+  ro: garanție
+  ru: залог
+
+- deck: Legalese
+  en: law
+  nl: { text: wet, article: de }
+  es: ley
+  fr: loi
+  it: legge
+  ro: lege
+  ru: закон
+
+- deck: Legalese
+  en: court
+  nl: { text: rechtbank, article: de }
+  es: tribunal
+  fr: tribunal
+  it: tribunale
+  ro: tribunal
+  ru: суд
