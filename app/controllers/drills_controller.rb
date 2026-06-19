@@ -4,11 +4,19 @@ class DrillsController < ApplicationController
   end
 
   def play
-    @deck = Deck.find_by!(slug: params[:deck])
+    if params[:deck].present? && params[:deck] != "all"
+      @deck = Deck.find_by!(slug: params[:deck])
+      terms = @deck.terms
+    else
+      terms = Term.order(:deck_id, :position)
+    end
+
+    @title     = @deck&.name || "All words"
+    @deck_slug = @deck&.slug || "all"
     @from = surfaced_lang(params[:from], "nl")
     @to   = surfaced_lang(params[:to], "en")
 
-    @cards = @deck.terms.includes(:translations).filter_map do |term|
+    @cards = terms.includes(:translations).filter_map do |term|
       prompt = term.translation(@from)
       answer = term.translation(@to)
       next unless prompt && answer
