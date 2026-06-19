@@ -38,6 +38,7 @@ registry:
 env:
   secret:
     - RAILS_MASTER_KEY
+    - ANTHROPIC_API_KEY   # AI deck generation (Mihai's key; per-user cap guards cost)
   clear:
     SOLID_QUEUE_IN_PUMA: true
 
