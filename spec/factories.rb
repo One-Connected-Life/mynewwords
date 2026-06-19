@@ -1,0 +1,33 @@
+FactoryBot.define do
+  factory :user do
+    sequence(:email_address) { |n| "user#{n}@example.com" }
+    password { "password" }
+    name { "Test" }
+    target_language { "nl" }
+    source_language { "en" }
+  end
+
+  factory :deck do
+    user
+    sequence(:name) { |n| "Deck #{n}" }
+  end
+
+  factory :term do
+    deck
+    kind { "word" }
+  end
+
+  factory :translation do
+    term
+    language { "nl" }
+    text { "woord" }
+  end
+
+  factory :attempt do
+    user
+    term
+    from_language { "nl" }
+    to_language { "en" }
+    correct { true }
+  end
+end
