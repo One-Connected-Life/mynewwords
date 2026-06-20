@@ -31,13 +31,9 @@
             <div class="flex items-baseline gap-4 text-[11px] tabular-nums text-gray-400">
               <% if sched %>
                 <span>recall ~<%= sched.recall_months %> mo</span>
-                <button
-                  data-turbo-method="patch"
-                  data-turbo-confirm="Un-retire this word and bring it back to drilling?"
-                  formaction="<%= term_path(term, scheduling_action: 'unretire') %>"
-                  class="text-[11px] text-gray-400 hover:underline hover:text-gray-600 dark:hover:text-gray-300">
-                  un-retire
-                </button>
+                <%= button_to "un-retire", unretire_term_path(term), method: :patch,
+                      form: { data: { turbo_confirm: "Un-retire this word and bring it back to drilling?" } },
+                      class: "text-[11px] text-gray-400 hover:underline hover:text-gray-600 dark:hover:text-gray-300" %>
               <% end %>
             </div>
           </li>

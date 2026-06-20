@@ -128,6 +128,9 @@ class DrillsController < ApplicationController
     {
       id: term.id,
       kind: term.kind,
+      # [EASE] current AI-prefilled ease (1–5) for this direction; drives the
+      # mid-drill nudge pips. nil in legacy mode (no scheduling rows exist).
+      ease: (ease_for(term) if fsrs_enabled?),
       prompt: prompt.with_article,
       # PHONETICS: IPA + translit for the prompt (FROM) word
       prompt_ipa: prompt.ipa,
@@ -149,6 +152,15 @@ class DrillsController < ApplicationController
         { lang: code, text: t.with_article } if t
       },
     }
+  end
+
+  # Current ease (1–5) for this term in the @from→@to direction. Reads the
+  # preloaded schedulings (FSRS path includes them); defaults to 3 if no row yet.
+  def ease_for(term)
+    s = term.schedulings.detect do |x|
+      x.user_id == current_user.id && x.from_language == @from && x.to_language == @to
+    end
+    s&.ease || 3
   end
 
   # Multi-language card: source prompt + N ordered targets.

@@ -21,6 +21,7 @@
        data-drill-to-value="<%= @to %>"
        data-drill-multi-value="<%= @multi ? 'true' : 'false' %>"
        data-drill-record-url-value="<%= attempts_path %>"
+       data-drill-ease-url-template-value="<%= ease_term_path('__ID__') %>"
        data-drill-fsrs-enabled-value="<%= ENV['FSRS_ENABLED'] == '1' %>">
 
     <header class="mb-6 flex items-start justify-between gap-4">
@@ -212,6 +213,8 @@
           <p data-drill-target="alts" class="text-xs text-gray-500 dark:text-gray-400"></p>
           <p data-drill-target="given" class="hidden text-xs text-gray-400"></p>
           <p data-drill-target="difficulty" class="mt-1 text-[11px] tracking-wide text-gray-400"></p>
+          <%# [EASE] mid-drill ease nudge (FSRS only) — populated on reveal by drill_controller#renderEaseNudge %>
+          <div data-drill-target="easeNudge" class="mt-2 hidden"></div>
         </div>
 
         <div data-drill-target="detail"

@@ -78,6 +78,24 @@ class Scheduling < ApplicationRecord
     }
   end
 
+  # Bring a retired word back into active rotation (the /stats "un-retire" tap).
+  # Make it due now and knock stability just below the retire threshold so it
+  # leaves the Retired shelf and rejoins drilling. Reps/difficulty/lapses are
+  # preserved — it's "almost there" again, not reset to a blank card. Also clears
+  # the archived ("done forever") flag so an archived word can be revived too.
+  def unretire!
+    update!(
+      due:       Time.current,
+      stability: [stability, Mastery::RETIRE_STABILITY_DAYS - 1].min,
+      archived:  false,
+    )
+  end
+
+  # Persist a user's mid-drill ease nudge (1–5). Clamps out-of-range input.
+  def nudge_ease!(value)
+    update!(ease: value.to_i.clamp(1, 5))
+  end
+
   # Persist an updated card hash back to this row (called after apply()).
   def update_from_card_hash!(hash)
     update!(

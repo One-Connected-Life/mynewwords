@@ -37,6 +37,19 @@ RSpec.describe EasePrefillService, type: :model do
       expect(results.map { |r| r[:term_id] }).to match_array(terms.map(&:id))
     end
 
+    it "defaults a sentence to ease=3 without distance scoring" do
+      term = create(:term, kind: "sentence", deck: create(:deck, user: user))
+      # Near-identical phrasing would score as a cognate by raw distance — the
+      # sentence short-circuit must override that to a moderate ease.
+      create(:translation, term: term, language: "nl", text: "Ik drink koffie met suiker.")
+      create(:translation, term: term, language: "en", text: "Ik drink koffie met suiker.")
+      term.reload
+      term.translations.load
+      result = service.score([term]).first
+      expect(result[:ease]).to eq(3)
+      expect(result[:cognate]).to be(false)
+    end
+
     it "defaults to ease=3 when a translation is missing" do
       term = create(:term, deck: create(:deck, user: user))
       create(:translation, term: term, language: "nl", text: "woord")

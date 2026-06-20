@@ -27,11 +27,13 @@ export default class extends Controller {
     "multiCheck", "multiNext", "celebrateText", "celebrate",
     // PHONETICS: containers for IPA + translit under the prompt and answer words
     "promptPhonetics", "answerPhonetics",
+    // EASE: mid-drill ease-nudge pips (FSRS only; guarded with hasEaseNudgeTarget)
+    "easeNudge",
     // FSRS retire targets — the bigger "Retired" overlay (#axis-4).
     // Only present when FSRS_ENABLED=1; guarded with hasRetireOverlayTarget.
     "retireOverlay", "retireBubble", "retireWord",
   ]
-  static values = { cards: Array, sentences: Array, from: String, to: String, recordUrl: String, multi: Boolean, fsrsEnabled: Boolean }
+  static values = { cards: Array, sentences: Array, from: String, to: String, recordUrl: String, easeUrlTemplate: String, multi: Boolean, fsrsEnabled: Boolean }
 
   connect() {
     this.cards = this.buildSequence(this.cardsValue, this.hasSentencesValue ? this.sentencesValue : [])
@@ -368,6 +370,7 @@ export default class extends Controller {
       this.showDifficulty(card.difficulty)
       this.showAlts(card)
       this.renderDetail(card)
+      this.renderEaseNudge(card)
       if (this.hasNextBtnTarget) this.nextBtnTarget.classList.remove("hidden")
       if (this.hasCheckBtnTarget) this.checkBtnTarget.classList.add("hidden")
 
@@ -388,6 +391,7 @@ export default class extends Controller {
       if (this.hasDifficultyTarget) this.difficultyTarget.textContent = ""
       if (this.hasAltsTarget) this.altsTarget.textContent = ""
       if (this.hasDetailTarget) { this.detailTarget.innerHTML = ""; this.detailTarget.classList.add("hidden") }
+      if (this.hasEaseNudgeTarget) { this.easeNudgeTarget.innerHTML = ""; this.easeNudgeTarget.classList.add("hidden") }
       if (this.hasNextBtnTarget) this.nextBtnTarget.classList.add("hidden")
       if (this.hasCheckBtnTarget) this.checkBtnTarget.classList.remove("hidden")
       this.inputTarget.focus()
@@ -426,6 +430,53 @@ export default class extends Controller {
 
     this.detailTarget.innerHTML = translationsHtml + etymologyHtml
     this.detailTarget.classList.remove("hidden")
+  }
+
+  // [EASE] Mid-drill ease nudge — five quiet pips (1 = easy … 5 = hard).
+  // FSRS-only: inert when the flag is off (the legacy path has no scheduling
+  // rows and card.ease is null). The current ease is AI-prefilled; tapping a
+  // pip persists the learner's adjustment for future scheduling.
+  renderEaseNudge(card) {
+    if (!this.hasEaseNudgeTarget) return
+    if (!this.fsrsEnabledValue || !card.ease) {
+      this.easeNudgeTarget.innerHTML = ""
+      this.easeNudgeTarget.classList.add("hidden")
+      return
+    }
+    const current = card.ease
+    const pips = [1, 2, 3, 4, 5].map((n) => {
+      const on = n === current
+      const cls = on
+        ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
+        : "text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+      return `<button type="button" data-action="click->drill#nudgeEase" data-ease="${n}"
+        class="h-6 w-6 rounded-md text-[11px] tabular-nums ${cls}" aria-label="ease ${n}">${n}</button>`
+    }).join("")
+    this.easeNudgeTarget.innerHTML = `
+      <div class="flex items-center justify-center gap-1.5">
+        <span class="mr-1 text-[10px] uppercase tracking-wide text-gray-400">easy</span>
+        ${pips}
+        <span class="ml-1 text-[10px] uppercase tracking-wide text-gray-400">hard</span>
+      </div>`
+    this.easeNudgeTarget.classList.remove("hidden")
+  }
+
+  // Persist an ease nudge and reflect it immediately in the pips.
+  nudgeEase(event) {
+    const ease = parseInt(event.currentTarget.dataset.ease, 10)
+    if (!ease) return
+    const card = this.cards[this.index]
+    card.ease = ease                 // local echo so the pip highlight updates
+    this.renderEaseNudge(card)
+    if (!this.hasEaseUrlTemplateValue || !this.easeUrlTemplateValue) return
+    const url = this.easeUrlTemplateValue.replace("__ID__", card.id)
+    const token = document.querySelector('meta[name="csrf-token"]')?.content
+    fetch(url, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json", "X-CSRF-Token": token || "" },
+      body: JSON.stringify({ ease, from: this.fromValue, to: this.toValue }),
+      keepalive: true,
+    }).catch(() => {})
   }
 
   // --- phonetics helpers ---

@@ -56,6 +56,11 @@ class EasePrefillService
   private
 
   def score_term(term)
+    # Sentences aren't cognate-scorable — Levenshtein over a whole phrase is noise
+    # (and would mislabel long matching phrases as "easy"). Default to moderate
+    # ease (3). A future easy/hard signal from the drill can refine this.
+    return { term_id: term.id, ease: 3, cognate: false } if term.kind == "sentence"
+
     source_text = term.translation(@user.source_language)&.text
     target_text = term.translation(@user.target_language)&.text
 

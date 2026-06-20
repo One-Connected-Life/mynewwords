@@ -104,6 +104,48 @@ RSpec.describe Scheduling, type: :model do
     end
   end
 
+  describe "#unretire!" do
+    it "drops a retired card off the retired shelf and makes it due now" do
+      s = build_scheduling(stability: Mastery::RETIRE_STABILITY_DAYS + 100,
+                           reps: Mastery::MIN_REPS_TO_RETIRE, state: 2,
+                           due: 1.year.from_now)
+      s.save!
+      expect(s.retired?).to be(true)
+
+      s.unretire!
+      expect(s.retired?).to be(false)
+      expect(s.stability).to be < Mastery::RETIRE_STABILITY_DAYS
+      expect(s.due).to be <= Time.current
+    end
+
+    it "preserves reps (it's almost-there again, not reset to zero)" do
+      s = build_scheduling(stability: 365.0, reps: 7).tap(&:save!)
+      expect { s.unretire! }.not_to change { s.reload.reps }
+    end
+
+    it "clears the archived flag" do
+      s = build_scheduling(stability: 365.0, reps: 5, archived: true).tap(&:save!)
+      s.unretire!
+      expect(s.archived).to be(false)
+    end
+  end
+
+  describe "#nudge_ease!" do
+    it "sets ease to a valid value" do
+      s = build_scheduling(ease: 3).tap(&:save!)
+      s.nudge_ease!(5)
+      expect(s.reload.ease).to eq(5)
+    end
+
+    it "clamps out-of-range nudges into 1–5" do
+      s = build_scheduling(ease: 3).tap(&:save!)
+      s.nudge_ease!(9)
+      expect(s.reload.ease).to eq(5)
+      s.nudge_ease!(0)
+      expect(s.reload.ease).to eq(1)
+    end
+  end
+
   describe "#retired? and #retirement_progress" do
     it "delegates to Mastery correctly" do
       high = build_scheduling(stability: Mastery::RETIRE_STABILITY_DAYS + 1,

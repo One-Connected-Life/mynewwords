@@ -19,6 +19,11 @@ Rails.application.routes.draw do
   # Stable per-word page — reload to re-test pronunciation, see all languages.
   resources :terms, only: [:show]
 
+  # FSRS hand-tweaks (#axis-4): un-retire a word from the /stats shelf, or nudge
+  # its ease 1–5 mid-drill. Both keyed by term id (direction inferred / passed).
+  patch "terms/:id/unretire", to: "schedulings#unretire", as: :unretire_term
+  patch "terms/:id/ease",     to: "schedulings#nudge",     as: :ease_term
+
   # Every word + your attempt history (right/wrong) and status.
   get "stats", to: "stats#index"
 
