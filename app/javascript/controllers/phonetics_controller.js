@@ -1,34 +1,47 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Glossika-style notation switcher for the mock. Swaps which phonetic
-// transcription (IPA / romanized / native) is visible, and restyles the
-// segmented toggle. Pure presentation — touches no drill state.
+// Production phonetics controller.
+// Manages the translit toggle for non-Latin script words (Russian etc.).
+// IPA is always shown. Translit is hidden by default and toggled via the "abc" button.
+// Preference is sticky via localStorage ("phonetics-translit": "1" = show).
 //
 // Targets:
-//   toggle  — each segmented button (carries data-notation)
-//   line    — each phonetic line (carries data-notation); the matching one shows
+//   ipaLine      — the IPA text element (always visible)
+//   translitLine — the romanization line (non-Latin only, toggleable)
+//   translitBtn  — the "abc" toggle button (non-Latin only)
+//
+// Values:
+//   hasTranslit  — Boolean, true when a translit line is present in this card
 export default class extends Controller {
-  static targets = ["toggle", "line"]
+  static targets = ["ipaLine", "translitLine", "translitBtn"]
+  static values = { hasTranslit: Boolean }
 
-  switch(event) {
-    const notation = event.currentTarget.dataset.notation
-    this.show(notation)
+  connect() {
+    if (!this.hasTranslitValue) return
+    // Restore preference: show translit if the user previously enabled it.
+    if (localStorage.getItem("phonetics-translit") === "1") {
+      this._showTranslit()
+    }
   }
 
-  show(notation) {
-    this.lineTargets.forEach((el) => {
-      el.classList.toggle("hidden", el.dataset.notation !== notation)
-    })
-    this.toggleTargets.forEach((btn) => {
-      const on = btn.dataset.notation === notation
-      btn.setAttribute("aria-pressed", on)
-      btn.classList.toggle("bg-white", on)
-      btn.classList.toggle("shadow-sm", on)
-      btn.classList.toggle("text-gray-900", on)
-      btn.classList.toggle("dark:bg-gray-700", on)
-      btn.classList.toggle("dark:text-gray-100", on)
-      btn.classList.toggle("text-gray-500", !on)
-      btn.classList.toggle("dark:text-gray-400", !on)
-    })
+  toggleTranslit() {
+    const showing = this.hasTranslitLineTarget && !this.translitLineTarget.classList.contains("hidden")
+    if (showing) {
+      this._hideTranslit()
+    } else {
+      this._showTranslit()
+    }
+  }
+
+  _showTranslit() {
+    if (this.hasTranslitLineTarget) this.translitLineTarget.classList.remove("hidden")
+    if (this.hasTranslitBtnTarget) this.translitBtnTarget.textContent = "ipa"
+    localStorage.setItem("phonetics-translit", "1")
+  }
+
+  _hideTranslit() {
+    if (this.hasTranslitLineTarget) this.translitLineTarget.classList.add("hidden")
+    if (this.hasTranslitBtnTarget) this.translitBtnTarget.textContent = "abc"
+    localStorage.setItem("phonetics-translit", "0")
   }
 }

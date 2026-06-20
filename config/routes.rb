@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   # AI-generate a deck from a topic, or remove one.
   resources :decks, only: [:new, :create, :destroy]
 
+  # IPA cheat sheet — compact legend reachable from any drill card phonetic line.
+  get "ipa-guide", to: "phonetics#guide", as: :ipa_guide
+
   # Owner-only design mocks for the four differentiators (issue #5). Stub data,
   # no live behavior. Specific routes BEFORE the :slug catch-all.
   get "mocks", to: "mocks#index", as: :mocks

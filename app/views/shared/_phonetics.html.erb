@@ -1,0 +1,60 @@
+<%#
+  Renders IPA (and transliteration toggle for non-Latin scripts) under a word.
+  Called on the prompt side (FROM word) and reveal side (TO word).
+
+  Locals:
+    ipa:       String — IPA transcription, e.g. "xlʲep". Required.
+    translit:  String|nil — romanization, only for non-Latin scripts (e.g. Russian).
+    non_latin: Boolean — true when the word uses a non-Latin script. Controls toggle visibility.
+
+  Design contract (UX primer):
+    - IPA is ambient secondary text — muted, smaller than the word, directly beneath it.
+    - Toggle ONLY appears when non_latin is true; Latin-script learners never see it.
+    - "what's this?" is a hairline link so it doesn't steal focus from the word.
+    - Everything is quiet. The word owns the screen.
+%>
+
+<% return if ipa.blank? %>
+
+<div data-controller="phonetics"
+     class="mt-2 text-center"
+     data-phonetics-has-translit-value="<%= non_latin ? "true" : "false" %>">
+
+  <%# IPA line — always shown, muted %>
+  <p data-phonetics-target="ipaLine"
+     class="text-sm text-gray-400 dark:text-gray-500 tabular-nums">
+    <%= ipa %>
+    <% unless non_latin %>
+      <%# "what's this?" link for Latin-script — no toggle needed, just the guide. %>
+      <%= link_to "?", ipa_guide_path,
+            class: "ml-1 text-[10px] text-gray-300 hover:text-gray-500 dark:text-gray-600 dark:hover:text-gray-400",
+            title: "IPA guide",
+            target: "_blank",
+            rel: "noopener" %>
+    <% end %>
+  </p>
+
+  <% if non_latin && translit.present? %>
+    <%# Transliteration line — toggle-controlled, hidden by default %>
+    <p data-phonetics-target="translitLine"
+       class="hidden text-sm text-gray-400 dark:text-gray-500">
+      <%= translit %>
+    </p>
+
+    <%# Compact toggle: show/hide translit. Sticky via localStorage. %>
+    <div class="mt-1.5 flex items-center justify-center gap-2">
+      <button type="button"
+              data-action="phonetics#toggleTranslit"
+              data-phonetics-target="translitBtn"
+              class="text-[10px] text-gray-300 hover:text-gray-500 dark:text-gray-600 dark:hover:text-gray-400"
+              aria-label="Toggle spelling guide">
+        abc
+      </button>
+      <%= link_to "?", ipa_guide_path,
+            class: "text-[10px] text-gray-300 hover:text-gray-500 dark:text-gray-600 dark:hover:text-gray-400",
+            title: "IPA guide",
+            target: "_blank",
+            rel: "noopener" %>
+    </div>
+  <% end %>
+</div>
