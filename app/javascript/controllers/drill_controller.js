@@ -29,6 +29,8 @@ export default class extends Controller {
     "promptPhonetics", "answerPhonetics",
     // EASE: mid-drill ease-nudge pips (FSRS only; guarded with hasEaseNudgeTarget)
     "easeNudge",
+    // ETYMOLOGY: prominent "from:" + 💡 block shown under the answer on reveal
+    "etymology",
     // FSRS retire targets — the bigger "Retired" overlay (#axis-4).
     // Only present when FSRS_ENABLED=1; guarded with hasRetireOverlayTarget.
     "retireOverlay", "retireBubble", "retireWord",
@@ -310,14 +312,13 @@ export default class extends Controller {
       this.multiUpcomingTarget.textContent = upcomingNames.length ? `then ${upcomingNames.join(" · ")}` : ""
     }
 
-    // Detail panel (all translations) — shown after all targets done.
-    if (this.hasDetailTarget) {
-      if (allDone) {
-        this.renderDetail(card)
-      } else {
-        this.detailTarget.innerHTML = ""
-        this.detailTarget.classList.add("hidden")
-      }
+    // Detail panel (all translations) + etymology — shown after all targets done.
+    if (allDone) {
+      this.renderDetail(card)
+      this.renderEtymology(card)
+    } else {
+      if (this.hasDetailTarget) { this.detailTarget.innerHTML = ""; this.detailTarget.classList.add("hidden") }
+      if (this.hasEtymologyTarget) { this.etymologyTarget.innerHTML = ""; this.etymologyTarget.classList.add("hidden") }
     }
 
     // Buttons: Check while answering, Next concept when done.
@@ -370,6 +371,7 @@ export default class extends Controller {
       this.showDifficulty(card.difficulty)
       this.showAlts(card)
       this.renderDetail(card)
+      this.renderEtymology(card)
       this.renderEaseNudge(card)
       if (this.hasNextBtnTarget) this.nextBtnTarget.classList.remove("hidden")
       if (this.hasCheckBtnTarget) this.checkBtnTarget.classList.add("hidden")
@@ -391,6 +393,7 @@ export default class extends Controller {
       if (this.hasDifficultyTarget) this.difficultyTarget.textContent = ""
       if (this.hasAltsTarget) this.altsTarget.textContent = ""
       if (this.hasDetailTarget) { this.detailTarget.innerHTML = ""; this.detailTarget.classList.add("hidden") }
+      if (this.hasEtymologyTarget) { this.etymologyTarget.innerHTML = ""; this.etymologyTarget.classList.add("hidden") }
       if (this.hasEaseNudgeTarget) { this.easeNudgeTarget.innerHTML = ""; this.easeNudgeTarget.classList.add("hidden") }
       if (this.hasNextBtnTarget) this.nextBtnTarget.classList.add("hidden")
       if (this.hasCheckBtnTarget) this.checkBtnTarget.classList.remove("hidden")
@@ -418,18 +421,27 @@ export default class extends Controller {
       </div>`
     }).join("")
 
-    // [ETYMOLOGY] Quiet annotation below the translation list — only when present.
-    const { etymology, mnemonic } = card
-    let etymologyHtml = ""
-    if (etymology || mnemonic) {
-      etymologyHtml = `<div class="mt-2 border-t border-gray-100 pt-2 dark:border-gray-800">`
-      if (etymology) etymologyHtml += `<p class="text-xs text-gray-400 dark:text-gray-500"><span class="font-medium text-gray-500 dark:text-gray-400">from:</span> ${esc(etymology)}</p>`
-      if (mnemonic)  etymologyHtml += `<p class="${etymology ? "mt-0.5" : ""} text-xs text-gray-400 dark:text-gray-500">💡 ${esc(mnemonic)}</p>`
-      etymologyHtml += `</div>`
-    }
-
-    this.detailTarget.innerHTML = translationsHtml + etymologyHtml
+    this.detailTarget.innerHTML = translationsHtml
     this.detailTarget.classList.remove("hidden")
+  }
+
+  // [ETYMOLOGY] Prominent insight block shown right under the answer on reveal.
+  // Pulled out of the quiet translations list (where it sat at the very bottom,
+  // next to Russian) into its own bigger, set-apart card. Hidden when absent.
+  renderEtymology(card) {
+    if (!this.hasEtymologyTarget) return
+    const { etymology, mnemonic } = card
+    if (!etymology && !mnemonic) {
+      this.etymologyTarget.innerHTML = ""
+      this.etymologyTarget.classList.add("hidden")
+      return
+    }
+    let html = `<div class="rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-left dark:border-gray-800 dark:bg-gray-900/40">`
+    if (etymology) html += `<p class="text-sm text-gray-700 dark:text-gray-200"><span class="font-semibold text-gray-500 dark:text-gray-400">from</span> ${this._esc(etymology)}</p>`
+    if (mnemonic)  html += `<p class="${etymology ? "mt-1 " : ""}text-sm text-gray-600 dark:text-gray-300">💡 ${this._esc(mnemonic)}</p>`
+    html += `</div>`
+    this.etymologyTarget.innerHTML = html
+    this.etymologyTarget.classList.remove("hidden")
   }
 
   // [EASE] Mid-drill ease nudge — five quiet pips (1 = easy … 5 = hard).

@@ -147,6 +147,9 @@
           <p data-drill-target="multiUpcoming"
              class="mt-3 text-center text-[10px] uppercase tracking-wide text-gray-300 dark:text-gray-600"></p>
 
+          <%# [ETYMOLOGY] insight block, shown once all targets answered %>
+          <div data-drill-target="etymology" class="mx-auto mt-4 hidden max-w-sm"></div>
+
           <%# detail panel: all translations, shown once all targets answered %>
           <div data-drill-target="detail"
                class="mx-auto mt-4 hidden max-w-sm divide-y divide-gray-100 border-t border-gray-100 pt-2 text-left dark:divide-gray-800 dark:border-gray-800"></div>
@@ -217,8 +220,11 @@
           <div data-drill-target="easeNudge" class="mt-2 hidden"></div>
         </div>
 
+        <%# [ETYMOLOGY] Prominent insight block right under the answer — populated by drill_controller#renderEtymology %>
+        <div data-drill-target="etymology" class="mx-auto mt-3 hidden max-w-sm"></div>
+
         <div data-drill-target="detail"
-             class="mx-auto mt-2 hidden max-w-sm divide-y divide-gray-100 border-t border-gray-100 pt-2 text-left dark:divide-gray-800 dark:border-gray-800"></div>
+             class="mx-auto mt-3 hidden max-w-sm divide-y divide-gray-100 border-t border-gray-100 pt-2 text-left dark:divide-gray-800 dark:border-gray-800"></div>
 
         <div class="mt-6 flex items-stretch justify-center gap-3">
           <button type="button" data-drill-target="backBtn" data-action="drill#prev"
