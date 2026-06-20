@@ -1,0 +1,49 @@
+<% content_for :title, "IPA guide" %>
+
+<div class="mx-auto max-w-lg">
+  <div class="mb-6">
+    <%= link_to "← back", :back, class: "text-xs text-gray-500 hover:underline dark:text-gray-400" %>
+    <h1 class="mt-2 text-lg font-semibold">IPA quick guide</h1>
+    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+      Symbols used in these 7 languages: English, Dutch, Spanish, French, Italian, Romanian, Russian.
+    </p>
+  </div>
+
+  <%# Vowels section %>
+  <section class="mb-8">
+    <p class="mb-2 text-[11px] font-semibold uppercase tracking-wide text-gray-400">Vowels</p>
+    <div class="divide-y divide-gray-100 dark:divide-gray-800">
+      <% @symbols.first(16).each do |s| %>
+        <div class="flex items-baseline gap-4 py-2">
+          <span class="w-8 shrink-0 font-mono text-base font-semibold tabular-nums"><%= s[:symbol] %></span>
+          <span class="w-32 shrink-0 text-xs text-gray-500 dark:text-gray-400"><%= s[:name] %></span>
+          <span class="text-xs text-gray-700 dark:text-gray-300">
+            <%= s[:example] %>
+            <span class="text-gray-400 dark:text-gray-500"> [<%= s[:fragment] %>]</span>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <%# Consonants + markers section %>
+  <section>
+    <p class="mb-2 text-[11px] font-semibold uppercase tracking-wide text-gray-400">Consonants &amp; markers</p>
+    <div class="divide-y divide-gray-100 dark:divide-gray-800">
+      <% @symbols.drop(16).each do |s| %>
+        <div class="flex items-baseline gap-4 py-2">
+          <span class="w-8 shrink-0 font-mono text-base font-semibold tabular-nums"><%= s[:symbol] %></span>
+          <span class="w-32 shrink-0 text-xs text-gray-500 dark:text-gray-400"><%= s[:name] %></span>
+          <span class="text-xs text-gray-700 dark:text-gray-300">
+            <%= s[:example] %>
+            <span class="text-gray-400 dark:text-gray-500"> [<%= s[:fragment] %>]</span>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <p class="mt-8 text-[11px] text-gray-400">
+    IPA = International Phonetic Alphabet. ˈ marks the stressed syllable. ː means the vowel is held longer.
+  </p>
+</div>

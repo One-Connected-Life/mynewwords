@@ -14,7 +14,26 @@ class Translation < ApplicationRecord
   # until we verify them and switch them on.
   SURFACED = %w[nl en].freeze
 
+  # Languages that use non-Latin scripts — these get a transliteration alongside IPA.
+  NON_LATIN = %w[ru].freeze
+
   belongs_to :term
+
+  # phonetics column stores { "ipa" => "...", "translit" => "..." } as JSON.
+  # translit is only present for NON_LATIN languages.
+  def phonetics_data
+    return {} if phonetics.blank?
+    JSON.parse(phonetics)
+  rescue JSON::ParserError
+    {}
+  end
+
+  def ipa = phonetics_data["ipa"]
+  def translit = phonetics_data["translit"]
+
+  def non_latin?
+    NON_LATIN.include?(language)
+  end
 
   validates :language, presence: true, inclusion: { in: LANGUAGES.keys }
   validates :text, presence: true

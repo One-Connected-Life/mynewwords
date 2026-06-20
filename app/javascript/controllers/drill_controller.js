@@ -10,7 +10,9 @@ export default class extends Controller {
   static targets = [
     "prompt", "kindTag", "input", "feedback", "answer", "given", "answerSpeak",
     "difficulty", "alts", "detail", "nextBtn", "checkBtn", "backBtn",
-    "progress", "score", "bar", "card", "summary", "summaryText", "missed", "auto", "autoWrong", "voiceHint"
+    "progress", "score", "bar", "card", "summary", "summaryText", "missed", "auto", "autoWrong", "voiceHint",
+    // PHONETICS: containers for IPA + translit under the prompt and answer words
+    "promptPhonetics", "answerPhonetics",
   ]
   static values = { cards: Array, sentences: Array, from: String, to: String, recordUrl: String }
 
@@ -151,6 +153,14 @@ export default class extends Controller {
       : "mt-2 text-4xl font-semibold tracking-tight sm:text-5xl"
     if (this.hasKindTagTarget) this.kindTagTarget.textContent = isSentence ? " · sentence" : ""
 
+    // PHONETICS: render IPA (+ translit toggle) under the prompt and, after grading, the answer.
+    this.renderPhonetics("prompt", card.prompt_ipa, card.prompt_translit, card.prompt_non_latin)
+    if (result.graded) {
+      this.renderPhonetics("answer", card.answer_ipa, card.answer_translit, card.answer_non_latin)
+    } else {
+      this.clearPhonetics("answer")
+    }
+
     this.progressTarget.textContent = `${this.index + 1} / ${this.cards.length}`
     this.barTarget.style.width = `${((this.index + 1) / this.cards.length) * 100}%`
     this.updateScore()
@@ -216,6 +226,62 @@ export default class extends Controller {
       </div>`
     }).join("")
     this.detailTarget.classList.remove("hidden")
+  }
+
+  // --- phonetics helpers ---
+
+  // Render IPA + optional translit into the slot's phonetics target container.
+  // Slot must be "prompt" or "answer"; each maps to a data-drill-target in the view.
+  renderPhonetics(slot, ipa, translit, nonLatin) {
+    const container = slot === "prompt"
+      ? (this.hasPromptPhoneticsTarget ? this.promptPhoneticsTarget : null)
+      : (this.hasAnswerPhoneticsTarget ? this.answerPhoneticsTarget : null)
+    if (!container) return
+    if (!ipa) { container.innerHTML = ""; return }
+
+    const showTranslit = nonLatin && translit && localStorage.getItem("phonetics-translit") === "1"
+
+    container.innerHTML = `
+      <p class="mt-2 text-sm text-gray-400 dark:text-gray-500 tabular-nums">${this._esc(ipa)}</p>
+      ${nonLatin && translit ? `
+        <p class="${showTranslit ? "" : "hidden"} text-sm text-gray-400 dark:text-gray-500" data-phonetics-translit-line="${slot}">${this._esc(translit)}</p>
+        <div class="mt-0.5 flex items-center justify-center gap-2">
+          <button type="button"
+                  class="text-[10px] text-gray-300 hover:text-gray-500 dark:text-gray-600 dark:hover:text-gray-400"
+                  data-action="click->drill#toggleTranslit"
+                  data-phonetics-translit-slot="${slot}"
+                  aria-label="Toggle spelling guide">${showTranslit ? "ipa" : "abc"}</button>
+        </div>` : ""}
+    `.trim()
+  }
+
+  clearPhonetics(slot) {
+    const container = slot === "prompt"
+      ? (this.hasPromptPhoneticsTarget ? this.promptPhoneticsTarget : null)
+      : (this.hasAnswerPhoneticsTarget ? this.answerPhoneticsTarget : null)
+    if (container) container.innerHTML = ""
+  }
+
+  toggleTranslit(event) {
+    const btn = event.currentTarget
+    const slot = btn.dataset.phoneticsTranslitSlot
+    const line = btn.closest("[data-phonetics-slot]")?.querySelector(`[data-phonetics-translit-line="${slot}"]`)
+    if (!line) return
+
+    const showing = !line.classList.contains("hidden")
+    if (showing) {
+      line.classList.add("hidden")
+      btn.textContent = "abc"
+      localStorage.setItem("phonetics-translit", "0")
+    } else {
+      line.classList.remove("hidden")
+      btn.textContent = "ipa"
+      localStorage.setItem("phonetics-translit", "1")
+    }
+  }
+
+  _esc(s) {
+    return (s || "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]))
   }
 
   finish() {

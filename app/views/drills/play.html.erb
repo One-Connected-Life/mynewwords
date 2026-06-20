@@ -72,6 +72,8 @@
       <div class="pt-12 pb-4 text-center">
         <p class="text-[11px] font-semibold uppercase tracking-wide text-gray-400"><%= Translation::LANGUAGES[@from] %><span data-drill-target="kindTag" class="text-amber-500"></span></p>
         <p data-drill-target="prompt" class="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl"></p>
+        <%# PHONETICS: placeholder for IPA + translit (populated by drill_controller#renderPhonetics) %>
+        <div data-drill-target="promptPhonetics" class="text-center"></div>
         <button type="button" data-action="drill#speakPrompt"
                 class="mt-3 inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-gray-400 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-800 dark:hover:text-gray-200">
           🔊 hear it
@@ -92,6 +94,8 @@
             🔊
           </button>
         </p>
+        <%# PHONETICS: placeholder for answer IPA + translit (populated by drill_controller#renderPhonetics) %>
+        <div data-drill-target="answerPhonetics" class="text-center"></div>
         <p data-drill-target="alts" class="text-xs text-gray-500 dark:text-gray-400"></p>
         <p data-drill-target="given" class="hidden text-xs text-gray-400"></p>
         <p data-drill-target="difficulty" class="mt-1 text-[11px] tracking-wide text-gray-400"></p>

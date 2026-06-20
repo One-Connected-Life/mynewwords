@@ -50,10 +50,18 @@ class DrillsController < ApplicationController
       id: term.id,
       kind: term.kind,
       prompt: prompt.with_article,
+      # PHONETICS: IPA + translit for the prompt (FROM) word
+      prompt_ipa: prompt.ipa,
+      prompt_translit: prompt.translit,
+      prompt_non_latin: prompt.non_latin?,
       answer: answer.text,
       answer_article: answer.article,
       accept: answer.accepted_answers,
       difficulty: (term.kind == "word" ? term.difficulty(@from, @to).to_s : ""),
+      # PHONETICS: IPA + translit for the answer (TO) word
+      answer_ipa: answer.ipa,
+      answer_translit: answer.translit,
+      answer_non_latin: answer.non_latin?,
       translations: lang_order.filter_map { |code|
         t = term.translation(code)
         { lang: code, text: t.with_article } if t

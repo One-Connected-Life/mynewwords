@@ -32,18 +32,34 @@ class DeckGenerator
   def fetch_words
     target = @user.target_language_name
     source = @user.source_language_name
+    target_code = @user.target_language
+    non_latin = Translation::NON_LATIN.include?(target_code)
 
     system = "You generate vocabulary for language learners. Output ONLY a valid JSON array, no prose, no markdown fences."
+
+    ipa_field = '"ipa": "<IPA pronunciation of the target word, e.g. /xlʲep/ written without slashes>"'
+    translit_field = non_latin ?
+      '"translit": "<spelling-based romanization of the target word (e.g. Russian хлеб → khleb, final б = b even though pronounced p)>"' :
+      '"translit": null'
+
     prompt = <<~PROMPT
       Generate #{COUNT} common, useful #{target} words or short phrases for the topic "#{@deck.topic}",
       for a learner whose base language is #{source}.
 
       Return a JSON array. Each element is an object:
-        {"target": "<the word in #{target}>", "source": "<its #{source} translation>", "article": "<the definite article in #{target} if this is a noun that takes one, otherwise null>"}
+        {
+          "target": "<the word in #{target}>",
+          "source": "<its #{source} translation>",
+          "article": "<the definite article in #{target} if this is a noun that takes one, otherwise null>",
+          #{ipa_field},
+          #{translit_field}
+        }
 
       Rules: beginner-to-intermediate, real and natural words, no duplicates, no proper nouns.
       Set "article" correctly for #{target} (e.g. Dutch de/het, German der/die/das, French le/la); use null when the language or the word takes none.
       Do NOT include the article inside the "target" value — the bare word goes in "target", the article only in "article".
+      For "ipa": provide the standard IPA transcription without surrounding slashes or brackets.
+      #{non_latin ? 'For "translit": use spelling-based romanization (not phonetic), consistent with how the word is spelled, not how it sounds.' : 'For "translit": always null (Latin-script language, no romanization needed).'}
     PROMPT
 
     response = post_message(system, prompt)
@@ -109,10 +125,26 @@ class DeckGenerator
         next if seen.include?(key)
         seen << key
 
+        phonetics_json = build_phonetics_json(w, target)
+
         term = @deck.terms.create!(kind: "word", position: (position += 1))
-        term.translations.create!(language: target, text: t, article: article)
+        term.translations.create!(language: target, text: t, article: article, phonetics: phonetics_json)
         term.translations.create!(language: source, text: s)
       end
     end
+  end
+
+  # Build the phonetics JSON string for a word entry.
+  # Non-Latin languages get both ipa + translit; Latin-script langs get ipa only.
+  def build_phonetics_json(word, target_code)
+    ipa = word["ipa"].to_s.strip.presence
+    return nil if ipa.nil?
+
+    data = { "ipa" => ipa }
+    if Translation::NON_LATIN.include?(target_code)
+      translit = word["translit"].to_s.strip.presence
+      data["translit"] = translit if translit
+    end
+    JSON.generate(data)
   end
 end
