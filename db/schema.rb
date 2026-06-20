@@ -61,7 +61,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_20_100000) do
     t.string "alternates"
     t.string "article"
     t.datetime "created_at", null: false
+    t.text "etymology"
     t.string "language", null: false
+    t.text "mnemonic"
     t.integer "term_id", null: false
     t.string "text", null: false
     t.datetime "updated_at", null: false
