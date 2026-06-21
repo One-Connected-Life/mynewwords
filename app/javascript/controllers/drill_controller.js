@@ -200,6 +200,9 @@ export default class extends Controller {
     const allDone = result.targets.every((t) => t.graded)
     if (allDone) {
       result.graded = true
+      // Drop the soft keyboard so "Next concept" + the reveal aren't hidden
+      // under it (the single-card path already blurs on grade). (#1 mobile UX)
+      if (this.hasMultiInputTarget) this.multiInputTarget.blur()
     } else {
       result.targetIndex = ti + 1
     }
@@ -324,6 +327,7 @@ export default class extends Controller {
     // Buttons: Check while answering, Next concept when done.
     if (this.hasMultiCheckTarget) this.multiCheckTarget.classList.toggle("hidden", allDone || !currentTarget)
     if (this.hasMultiNextTarget)  this.multiNextTarget.classList.toggle("hidden", !allDone)
+    if (allDone) this.scrollActionIntoView(this.hasMultiNextTarget ? this.multiNextTarget : null)
     if (this.hasBackBtnTarget) this.backBtnTarget.classList.toggle("hidden", this.index === 0)
   }
 
@@ -382,6 +386,7 @@ export default class extends Controller {
       } else {
         this.givenTarget.classList.add("hidden")
       }
+      this.scrollActionIntoView(this.hasNextBtnTarget ? this.nextBtnTarget : null)
     } else {
       this.inputTarget.value = ""
       this.inputTarget.disabled = false
@@ -425,6 +430,14 @@ export default class extends Controller {
     this.detailTarget.classList.remove("hidden")
   }
 
+  // Bring an action button into view above where the iOS keyboard sat — after a
+  // reveal the answer + Next render low on the card and can otherwise be hidden
+  // behind the dismissing keyboard. (#1 mobile UX)
+  scrollActionIntoView(el) {
+    if (!el) return
+    requestAnimationFrame(() => el.scrollIntoView({ block: "center", behavior: "smooth" }))
+  }
+
   // [ETYMOLOGY] Prominent insight block shown right under the answer on reveal.
   // Pulled out of the quiet translations list (where it sat at the very bottom,
   // next to Russian) into its own bigger, set-apart card. Hidden when absent.
@@ -462,7 +475,7 @@ export default class extends Controller {
         ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
         : "text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
       return `<button type="button" data-action="click->drill#nudgeEase" data-ease="${n}"
-        class="h-6 w-6 rounded-md text-[11px] tabular-nums ${cls}" aria-label="ease ${n}">${n}</button>`
+        class="h-11 w-11 rounded-md text-sm tabular-nums ${cls}" aria-label="ease ${n}">${n}</button>`
     }).join("")
     this.easeNudgeTarget.innerHTML = `
       <div class="flex items-center justify-center gap-1.5">

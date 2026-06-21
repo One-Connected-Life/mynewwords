@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/* Kill iOS Safari's gray tap-highlight rectangle (it leaves corner artifacts on
+   our rounded buttons). active:scale-95 already gives tactile feedback. */
+@layer base {
+  button, a, label, summary, [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
 /* Celebration pop when a word enters the owned collection. */
 @keyframes celebrate-pop {
   0%   { transform: translateY(-10px) scale(0.9); opacity: 0; }

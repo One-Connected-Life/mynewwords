@@ -71,7 +71,10 @@
   <% end %>
 
   <%# ── Active words table ──────────────────────────────────────────────── %>
-  <table class="w-full text-sm">
+  <%# Scroll the TABLE on narrow phones, not the whole page (which would drag the
+      header/nav sideways). -mx-5 px-5 lets it bleed to the screen edges. %>
+  <div class="overflow-x-auto -mx-5 px-5">
+  <table class="w-full min-w-[28rem] text-sm">
     <thead>
       <tr class="border-b border-gray-200 text-left text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:border-gray-800 dark:text-gray-400">
         <th class="py-1.5 pr-2 font-semibold"><%= current_user.target_language_name %></th>
@@ -110,4 +113,5 @@
       <% end %>
     </tbody>
   </table>
+  </div>
 <% end %>

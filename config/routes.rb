@@ -8,6 +8,9 @@ Rails.application.routes.draw do
 
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # PWA manifest (add-to-home-screen). Renders app/views/pwa/manifest.json.erb.
+  get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+
   root "drills#home"
 
   # The drill runner: ?deck=<slug|all|misses>&from=<lang>&to=<lang>
