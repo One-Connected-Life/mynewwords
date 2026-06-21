@@ -94,8 +94,9 @@ class DeckGenerator
     PROMPT
 
     response = post_message(system, prompt)
-    text = response.dig("content", 0, "text").to_s
-    JSON.parse(strip_fences(text))
+    text = strip_fences(response.dig("content", 0, "text").to_s)
+    return [] if text.blank? # model found nothing usable (e.g. a non-speech transcript)
+    JSON.parse(text)
   rescue JSON::ParserError => e
     raise Error, "could not parse model output: #{e.message}"
   end

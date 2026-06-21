@@ -52,9 +52,12 @@ class Transcriber
       raise Error, "whisper-cli failed: #{out.to_s.split("\n").last(3).join(' ')}"
     end
 
+    # Whisper marks non-speech segments with "(...)", "[BLANK_AUDIO]", bracket tags,
+    # or musical notes — a silent or hung-up voicemail produces only these.
     transcript = File.read(txt).strip
-    raise Error, "transcript was empty" if transcript.blank?
-    transcript
+    speech = transcript.gsub(/\(\.\.\.\)|\[[^\]]*\]|[♪♫]/, "").strip
+    raise Error, "no speech detected in the audio" if speech.blank?
+    speech
   end
 
   def ffmpeg_bin  = ENV["FFMPEG_BIN"].presence  || "ffmpeg"
