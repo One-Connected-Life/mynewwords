@@ -27,7 +27,7 @@ servers:
 # colliding — each registers its own host. The proxy also handles rolling
 # new->old swaps on internal ports, so there's no fixed host-port clash on
 # redeploy (the old `proxy: false` + `8082:80` publish did clash — see
-# reference_language_app_kamal_redeploy_port). kamal-proxy auto-provisions a
+# reference_polyglot_kamal_redeploy_port). kamal-proxy auto-provisions a
 # Let's Encrypt cert for the host below (needs DNS-only A record -> this box).
 proxy:
   ssl: true
