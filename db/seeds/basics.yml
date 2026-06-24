@@ -2240,162 +2240,90 @@
 - deck: 'Basics: Colors'
   en: red
   type: noun
-  nl:
-    text: rood
-    article: het
-  es:
-    text: rojo
-    article: el
-  fr:
-    text: rouge
-    article: le
-  it:
-    text: rosso
-    article: il
+  nl: rood
+  es: rojo
+  fr: rouge
+  it: rosso
   ro: roșu
   ru: красный
   key: colors/red
 - deck: 'Basics: Colors'
   en: blue
   type: noun
-  nl:
-    text: blauw
-    article: het
-  es:
-    text: azul
-    article: el
-  fr:
-    text: bleu
-    article: le
-  it:
-    text: blu
-    article: il
+  nl: blauw
+  es: azul
+  fr: bleu
+  it: blu
   ro: albastru
   ru: синий
   key: colors/blue
 - deck: 'Basics: Colors'
   en: green
   type: noun
-  nl:
-    text: groen
-    article: het
-  es:
-    text: verde
-    article: el
-  fr:
-    text: vert
-    article: le
-  it:
-    text: verde
-    article: il
+  nl: groen
+  es: verde
+  fr: vert
+  it: verde
   ro: verde
   ru: зелёный
   key: colors/green
 - deck: 'Basics: Colors'
   en: yellow
   type: noun
-  nl:
-    text: geel
-    article: het
-  es:
-    text: amarillo
-    article: el
-  fr:
-    text: jaune
-    article: le
-  it:
-    text: giallo
-    article: il
+  nl: geel
+  es: amarillo
+  fr: jaune
+  it: giallo
   ro: galben
   ru: жёлтый
   key: colors/yellow
 - deck: 'Basics: Colors'
   en: black
   type: noun
-  nl:
-    text: zwart
-    article: het
-  es:
-    text: negro
-    article: el
-  fr:
-    text: noir
-    article: le
-  it:
-    text: nero
-    article: il
+  nl: zwart
+  es: negro
+  fr: noir
+  it: nero
   ro: negru
   ru: чёрный
   key: colors/black
 - deck: 'Basics: Colors'
   en: white
   type: noun
-  nl:
-    text: wit
-    article: het
-  es:
-    text: blanco
-    article: el
-  fr:
-    text: blanc
-    article: le
-  it:
-    text: bianco
-    article: il
+  nl: wit
+  es: blanco
+  fr: blanc
+  it: bianco
   ro: alb
   ru: белый
   key: colors/white
 - deck: 'Basics: Colors'
   en: gray
   type: noun
-  nl:
-    text: grijs
-    article: het
-  es:
-    text: gris
-    article: el
-  fr:
-    text: gris
-    article: le
-  it:
-    text: grigio
-    article: il
+  nl: grijs
+  es: gris
+  fr: gris
+  it: grigio
   ro: gri
   ru: серый
   key: colors/gray
 - deck: 'Basics: Colors'
   en: brown
   type: noun
-  nl:
-    text: bruin
-    article: het
-  es:
-    text: marrón
-    article: el
-  fr:
-    text: marron
-    article: le
-  it:
-    text: marrone
-    article: il
+  nl: bruin
+  es: marrón
+  fr: marron
+  it: marrone
   ro: maro
   ru: коричневый
   key: colors/brown
 - deck: 'Basics: Colors'
   en: orange
   type: noun
-  nl:
-    text: oranje
-    article: het
-  es:
-    text: naranja
-    article: el
-  fr:
-    text: orange
-    article: le
-  it:
-    text: arancione
-    article: il
+  nl: oranje
+  es: naranja
+  fr: orange
+  it: arancione
   ro: portocaliu
   ru: оранжевый
   key: colors/orange
