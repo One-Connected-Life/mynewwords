@@ -13,11 +13,8 @@
   <div data-controller="poll" data-poll-interval-value="5000" class="hidden"></div>
 <% end %>
 
-<header class="mb-6 flex items-center justify-end gap-3">
-  <%= link_to "Your words →", stats_path, class: "shrink-0 text-xs text-gray-500 hover:underline dark:text-gray-400" %>
-  <%= link_to "Settings", onboarding_path, class: "shrink-0 text-xs text-gray-500 hover:underline dark:text-gray-400" %>
-</header>
-
+<%# "Your words" and Settings now live in the global nav (gear wheel) — no
+    duplicate header here, so PLAY NOW is the clean top of the page. %>
 <%# PLAY NOW — the one-tap hero. Backports the native shell's raised coral Drill
     CTA to web: launch All-words drilling in the user's SAVED default direction
     (no from/to → drills_controller falls back to default_drill_direction). Only
