@@ -11,14 +11,23 @@ class DrillsController < ApplicationController
     @from = surfaced_lang(params[:from], current_user.source_language)
     @to   = surfaced_lang(params[:to], current_user.target_language)
 
-    session[:skip_easy] = params[:skip_easy] == "1" if params.key?(:skip_easy)
-    @skip_easy = session[:skip_easy] || false
+    # Drill options live on the User now (edited in Settings / onboarding#show).
+    # URL params still update the saved pref (back-compat with old deep links and
+    # any inline affordance), but the default is the user's persisted setting.
+    if params.key?(:skip_easy) && current_user.skip_easy? != (params[:skip_easy] == "1")
+      current_user.update!(skip_easy: params[:skip_easy] == "1")
+    end
+    @skip_easy = current_user.skip_easy?
 
     # Persistent drill-order setting (smart = FSRS order w/ randomized ties; shuffle = random).
     if %w[smart shuffle].include?(params[:order]) && current_user.drill_order != params[:order]
       current_user.update!(drill_order: params[:order])
     end
     @drill_order = current_user.drill_order
+
+    # Autoplay prefs feed the JS controller (no more localStorage source of truth).
+    @autoplay_prompt = current_user.autoplay_prompt?
+    @autoplay_wrong  = current_user.autoplay_wrong?
 
     # Multi-language drill: source → N targets in a sequential-reveal card.
     # Activated when multi=1 is in the params (set from the home deck picker).
@@ -117,8 +126,10 @@ class DrillsController < ApplicationController
 
   # ── legacy path (feature flag off) ────────────────────────────────────────
   def play_legacy
-    session[:hide_mastered] = params[:hide_mastered] == "1" if params.key?(:hide_mastered)
-    @hide_mastered = session.key?(:hide_mastered) ? session[:hide_mastered] : true
+    if params.key?(:hide_mastered) && current_user.hide_mastered? != (params[:hide_mastered] == "1")
+      current_user.update!(hide_mastered: params[:hide_mastered] == "1")
+    end
+    @hide_mastered = current_user.hide_mastered?
     resting = @hide_mastered ? current_user.attempts.resting_term_ids(from: @from, to: @to) : []
 
     base_terms = select_terms(params[:deck]).includes(:translations).to_a

@@ -26,6 +26,11 @@ class OnboardingController < ApplicationController
   private
 
   def onboarding_params
-    params.require(:user).permit(:name, :target_language, :source_language, :drill_direction, learning_languages: [])
+    params.require(:user).permit(
+      :name, :target_language, :source_language, :drill_direction,
+      # Drill options (Finding A): persisted per-user, edited here in Settings.
+      :drill_order, :skip_easy, :hide_mastered, :autoplay_prompt, :autoplay_wrong,
+      learning_languages: [],
+    )
   end
 end

@@ -20,53 +20,29 @@
        data-drill-from-value="<%= @from %>"
        data-drill-to-value="<%= @to %>"
        data-drill-multi-value="<%= @multi ? 'true' : 'false' %>"
+       data-drill-autoplay-prompt-value="<%= @autoplay_prompt ? 'true' : 'false' %>"
+       data-drill-autoplay-wrong-value="<%= @autoplay_wrong ? 'true' : 'false' %>"
        data-drill-record-url-value="<%= attempts_path %>"
        data-drill-ease-url-template-value="<%= ease_term_path('__ID__') %>"
        data-drill-fsrs-enabled-value="<%= ENV['FSRS_ENABLED'] == '1' %>">
 
-    <header class="mb-6 flex items-start justify-between gap-4">
-      <div>
-        <%= link_to "← decks", root_path, class: "text-xs text-gray-500 hover:underline dark:text-gray-400" %>
-        <h1 class="mt-1 text-lg font-semibold"><%= @title %></h1>
-      </div>
-      <div class="space-y-1 text-right text-xs text-gray-500 dark:text-gray-400">
+    <%# Clean drill top: just the deck name + direction. The cluster of drill
+        options (easy cognates / order / mastered / autoplay) now lives in
+        Settings (onboarding#show). The brand lockup in the layout nav is the
+        page top. A quick ⇄ swap stays inline as a mid-session affordance. %>
+    <header class="mb-6">
+      <h1 class="text-lg font-semibold"><%= @title %></h1>
+      <div class="mt-0.5 flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
         <% if @multi %>
-          <div><%= Translation::LANGUAGES[@from] %> → <%= @target_langs.map { |l| Translation::LANGUAGES[l] }.join(", ") %></div>
-          <div><%= link_to "single language", play_path(deck: @deck_slug, from: @from, to: @to), class: "hover:underline" %></div>
+          <span><%= Translation::LANGUAGES[@from] %> → <%= @target_langs.map { |l| Translation::LANGUAGES[l] }.join(", ") %></span>
+          <span class="text-gray-300 dark:text-gray-600">·</span>
+          <%= link_to "single language", play_path(deck: @deck_slug, from: @from, to: @to), class: "hover:underline" %>
         <% else %>
-          <div>
-            <%= Translation::LANGUAGES[@from] %> → <%= Translation::LANGUAGES[@to] %> ·
-            <%= link_to "⇄ swap", play_path(deck: @deck_slug, from: @to, to: @from, skip_easy: @skip_easy ? "1" : "0"), class: "hover:underline" %>
-          </div>
-          <div>
-            <%= link_to (@skip_easy ? "easy cognates: hidden" : "easy cognates: shown"),
-                  play_path(deck: @deck_slug, from: @from, to: @to, skip_easy: @skip_easy ? "0" : "1"),
-                  class: "hover:underline" %>
-          </div>
-          <div>
-            <%= link_to (@drill_order == "shuffle" ? "order: shuffle" : "order: smart"),
-                  play_path(deck: @deck_slug, from: @from, to: @to, skip_easy: @skip_easy ? "1" : "0", order: @drill_order == "shuffle" ? "smart" : "shuffle"),
-                  class: "hover:underline", title: "smart = spaced-repetition order (ties randomized) · shuffle = fully random" %>
-          </div>
-          <% if current_user.multi_language_drill? %>
-            <div><%= link_to "drill all #{current_user.active_learning_languages.size} languages", play_path(deck: @deck_slug, from: @from, multi: "1"), class: "hover:underline" %></div>
-          <% end %>
+          <span><%= Translation::LANGUAGES[@from] %> → <%= Translation::LANGUAGES[@to] %></span>
+          <%= link_to "⇄ swap", play_path(deck: @deck_slug, from: @to, to: @from), class: "hover:underline", "aria-label": "swap direction" %>
         <% end %>
-        <div>
-          <%= link_to (@hide_mastered ? "mastered: resting 7–14d" : "mastered: shown"),
-                play_path(deck: @deck_slug, from: @from, to: @to, hide_mastered: @hide_mastered ? "0" : "1", multi: @multi ? "1" : "0"),
-                class: "hover:underline" %>
-        </div>
-        <% unless @multi %>
-          <label class="inline-flex cursor-pointer items-center gap-1">
-            <input type="checkbox" data-drill-target="auto" data-action="change->drill#toggleAuto" class="accent-gray-700">
-            🔊 auto-play prompt
-          </label>
-          <label class="inline-flex cursor-pointer items-center gap-1">
-            <input type="checkbox" data-drill-target="autoWrong" data-action="change->drill#toggleAutoWrong" class="accent-gray-700">
-            🔊 read answer if wrong
-          </label>
-        <% end %>
+        <span class="text-gray-300 dark:text-gray-600">·</span>
+        <%= link_to "options", onboarding_path, class: "hover:underline" %>
       </div>
     </header>
 

@@ -16,7 +16,8 @@ module Api
         @from = surfaced_lang(params[:from], current_user.source_language)
         @to   = surfaced_lang(params[:to], current_user.target_language)
 
-        @skip_easy = params[:skip_easy] == "1"
+        # Default to the user's saved pref (Finding A); explicit param still overrides.
+        @skip_easy = params.key?(:skip_easy) ? params[:skip_easy] == "1" : current_user.skip_easy?
 
         if %w[smart shuffle].include?(params[:order]) && current_user.drill_order != params[:order]
           current_user.update!(drill_order: params[:order])
@@ -91,10 +92,9 @@ module Api
       end
 
       # ── legacy path (mirrors DrillsController#play_legacy) ────────────────────
-      # API is stateless: hide_mastered defaults to true (the web default) since
-      # there's no session to persist a toggle into.
+      # Defaults to the user's saved pref (Finding A); explicit param overrides.
       def play_legacy
-        @hide_mastered = params.key?(:hide_mastered) ? params[:hide_mastered] == "1" : true
+        @hide_mastered = params.key?(:hide_mastered) ? params[:hide_mastered] == "1" : current_user.hide_mastered?
         resting = @hide_mastered ? current_user.attempts.resting_term_ids(from: @from, to: @to) : []
 
         base_terms = select_terms(params[:deck]).includes(:translations).to_a

@@ -51,4 +51,12 @@ export function speak(text, code, { onResult } = {}) {
   }
 }
 
+// Cancel any in-flight or queued speech. Safe to call when nothing is speaking.
+// Used by the drill controller on disconnect / page-hide / Turbo cache so audio
+// doesn't keep firing across cards after you leave. (Finding B)
+export function stop() {
+  if (!("speechSynthesis" in window)) return
+  window.speechSynthesis.cancel()
+}
+
 export { LANG_TAGS }

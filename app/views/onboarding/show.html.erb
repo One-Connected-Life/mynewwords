@@ -75,6 +75,67 @@
       </div>
     </div>
 
+    <%# ── Drill options (Finding A) ───────────────────────────────────────────
+        Relocated here from the drill play screen so the drill top stays clean.
+        Persisted per-user; every option still works, just from Settings. %>
+    <div class="border-t border-gray-200 pt-5 dark:border-gray-800">
+      <h2 class="text-sm font-semibold text-gray-700 dark:text-gray-200">Drill options</h2>
+      <p class="mt-0.5 text-[11px] text-gray-400 dark:text-gray-500">How drills behave. Applies the next time you start one.</p>
+
+      <%# Order: smart (FSRS) vs shuffle (random) %>
+      <div class="mt-4">
+        <label class="block text-xs font-medium text-gray-600 dark:text-gray-300">Order</label>
+        <div class="mt-1.5 inline-flex rounded-lg border border-gray-300 bg-gray-50 p-0.5 dark:border-gray-700 dark:bg-gray-950">
+          <% [["smart", "Smart"], ["shuffle", "Shuffle"]].each do |value, label| %>
+            <label class="cursor-pointer">
+              <%= f.radio_button :drill_order, value, class: "sr-only" %>
+              <span class="block rounded-md px-3 py-1.5 text-sm transition-colors
+                           <%= @user.drill_order == value ? 'bg-white shadow-sm dark:bg-gray-700 text-gray-900 dark:text-gray-100' : 'text-gray-500 dark:text-gray-400' %>">
+                <%= label %>
+              </span>
+            </label>
+          <% end %>
+        </div>
+        <p class="mt-1 text-[11px] text-gray-400 dark:text-gray-500">Smart = spaced-repetition order. Shuffle = fully random.</p>
+      </div>
+
+      <%# Toggle checkboxes. Hidden sentinel before each so an unchecked box still
+          posts "0" (Rails check_box does this automatically via its hidden field). %>
+      <div class="mt-4 space-y-3">
+        <label class="flex cursor-pointer items-start gap-2.5">
+          <%= f.check_box :skip_easy, class: "mt-0.5 h-4 w-4 rounded accent-brand-indigo" %>
+          <span class="text-sm">
+            Hide easy cognates
+            <span class="block text-[11px] text-gray-400 dark:text-gray-500">Skip words that look almost identical in both languages.</span>
+          </span>
+        </label>
+
+        <label class="flex cursor-pointer items-start gap-2.5">
+          <%= f.check_box :hide_mastered, class: "mt-0.5 h-4 w-4 rounded accent-brand-indigo" %>
+          <span class="text-sm">
+            Rest mastered words
+            <span class="block text-[11px] text-gray-400 dark:text-gray-500">Hide words you've recently mastered so they rest before returning.</span>
+          </span>
+        </label>
+
+        <label class="flex cursor-pointer items-start gap-2.5">
+          <%= f.check_box :autoplay_prompt, class: "mt-0.5 h-4 w-4 rounded accent-brand-indigo" %>
+          <span class="text-sm">
+            🔊 Auto-play prompt
+            <span class="block text-[11px] text-gray-400 dark:text-gray-500">Speak each word aloud as it appears.</span>
+          </span>
+        </label>
+
+        <label class="flex cursor-pointer items-start gap-2.5">
+          <%= f.check_box :autoplay_wrong, class: "mt-0.5 h-4 w-4 rounded accent-brand-indigo" %>
+          <span class="text-sm">
+            🔊 Read answer if wrong
+            <span class="block text-[11px] text-gray-400 dark:text-gray-500">Speak the correct answer aloud when you miss.</span>
+          </span>
+        </label>
+      </div>
+    </div>
+
     <%= f.submit "Save & start drilling", class: primary_button_classes %>
   <% end %>
 </div>

@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { speak as pronounce } from "speech"
+import { speak as pronounce, stop as stopSpeech } from "speech"
 
 const DIFFICULTY_METER = { easy: "● ○ ○", medium: "● ● ○", hard: "● ● ●" }
 
@@ -20,7 +20,7 @@ export default class extends Controller {
   static targets = [
     "prompt", "kindTag", "input", "feedback", "answer", "given", "answerSpeak",
     "difficulty", "alts", "detail", "nextBtn", "checkBtn", "backBtn",
-    "progress", "score", "bar", "card", "summary", "summaryText", "missed", "auto", "autoWrong", "voiceHint",
+    "progress", "score", "bar", "card", "summary", "summaryText", "missed", "voiceHint",
     // Multi-language targets (only present when @multi == true in the view):
     "multiCard", "multiFrom", "multiPrompt", "multiStep",
     "multiDone", "multiLangLabel", "multiInput", "multiUpcoming",
@@ -35,27 +35,51 @@ export default class extends Controller {
     // Only present when FSRS_ENABLED=1; guarded with hasRetireOverlayTarget.
     "retireOverlay", "retireBubble", "retireWord",
   ]
-  static values = { cards: Array, sentences: Array, from: String, to: String, recordUrl: String, easeUrlTemplate: String, multi: Boolean, fsrsEnabled: Boolean }
+  static values = {
+    cards: Array, sentences: Array, from: String, to: String,
+    recordUrl: String, easeUrlTemplate: String, multi: Boolean, fsrsEnabled: Boolean,
+    // Autoplay prefs come from the server (saved per-user in Settings); no longer
+    // a localStorage source of truth. (Finding A)
+    autoplayPrompt: Boolean, autoplayWrong: Boolean,
+  }
 
   connect() {
     this.cards = this.buildSequence(this.cardsValue, this.hasSentencesValue ? this.sentencesValue : [])
     this.results = this.cards.map((card) => this.initResult(card))
     this.index = 0
-    this.autoOn = localStorage.getItem("drill-autoplay") === "1"
-    if (this.hasAutoTarget) this.autoTarget.checked = this.autoOn
-    this.autoWrongOn = localStorage.getItem("drill-autoplay-wrong") === "1"
-    if (this.hasAutoWrongTarget) this.autoWrongTarget.checked = this.autoWrongOn
+    this.autoOn = this.autoplayPromptValue
+    this.autoWrongOn = this.autoplayWrongValue
     this.ownedThisRun = 0
     this.onKey = this.onKey.bind(this)
     window.addEventListener("keydown", this.onKey)
+
+    // Finding B: stop any in-flight/queued speech the moment the drill loses the
+    // foreground, so autoplay can't keep firing across cards after you leave.
+    // - disconnect()  : Stimulus teardown (Turbo navigation, controller removed)
+    // - visibilitychange : tab hidden / app backgrounded
+    // - turbo:before-cache : Turbo snapshots the page before caching/restoring
+    // - pagehide       : bfcache / hard navigation away
+    this.onHide = () => { if (document.hidden) this.stopSpeech() }
+    this.onCachePurge = () => this.stopSpeech()
+    document.addEventListener("visibilitychange", this.onHide)
+    document.addEventListener("turbo:before-cache", this.onCachePurge)
+    window.addEventListener("pagehide", this.onCachePurge)
+
     this.bindSwipe()
     this.render()
   }
 
   disconnect() {
     window.removeEventListener("keydown", this.onKey)
+    document.removeEventListener("visibilitychange", this.onHide)
+    document.removeEventListener("turbo:before-cache", this.onCachePurge)
+    window.removeEventListener("pagehide", this.onCachePurge)
+    this.stopSpeech()
     this.unbindSwipe()
   }
+
+  // Cancel any speech currently playing or queued.
+  stopSpeech() { stopSpeech() }
 
   // Initialise a per-card result object.
   // Multi cards carry per-target state in result.targets[].
@@ -653,17 +677,8 @@ export default class extends Controller {
   }
 
   // --- speech (browser TTS, no backend) ---
-
-  toggleAuto() {
-    this.autoOn = this.autoTarget.checked
-    localStorage.setItem("drill-autoplay", this.autoOn ? "1" : "0")
-    if (this.autoOn) this.speakPrompt()
-  }
-
-  toggleAutoWrong() {
-    this.autoWrongOn = this.autoWrongTarget.checked
-    localStorage.setItem("drill-autoplay-wrong", this.autoWrongOn ? "1" : "0")
-  }
+  // Autoplay prefs (this.autoOn / this.autoWrongOn) are set from server values in
+  // connect(); they're toggled in Settings, not on the drill screen. (Finding A)
 
   speakPrompt() { this.speak(this.cards[this.index].prompt, this.fromValue) }
   speakAnswer() {
