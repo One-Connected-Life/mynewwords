@@ -45,6 +45,12 @@
             <span class="text-base font-semibold tracking-tight text-brand-indigo dark:text-brand-paper">
               Poly<span class="text-brand-coral">glot</span>
             </span>
+            <%# Build tag — only present inside a native shell (UA token); plain
+                browsers see nothing. Tiny + muted so it never competes with the
+                wordmark. %>
+            <% if (tag = app_build_tag) %>
+              <span class="text-xs font-medium text-gray-400 dark:text-gray-500" title="Native build <%= tag %>"><%= tag %></span>
+            <% end %>
           <% end %>
           <div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
             <%= link_to "Your words", stats_path, class: "hover:text-brand-indigo hover:underline dark:hover:text-brand-paper" %>

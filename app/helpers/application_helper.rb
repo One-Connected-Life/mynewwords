@@ -29,4 +29,17 @@ module ApplicationHelper
   def native_app?
     request.user_agent.to_s.match?(/Hotwire Native|Turbo Native/i)
   end
+
+  # Build tag for the brand lockup so Mihai always knows which native build he's
+  # on (e.g. "H8" = Hotwire shell, build 8). The native shell advertises itself
+  # in the User-Agent with the token "OCL-App/H<CFBundleVersion>" (App A = "H";
+  # App B native = "N" when it ever reports). Returns e.g. "H8" or nil for a
+  # plain browser (no token). Contract is shared with polyglot-ios
+  # WebViewConfiguration.swift — keep the token format identical on both sides.
+  def app_build_tag
+    m = request.user_agent.to_s.match(%r{OCL-App/([HN])(\d+)})
+    return nil unless m
+
+    "#{m[1]}#{m[2]}"
+  end
 end
