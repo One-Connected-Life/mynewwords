@@ -153,7 +153,7 @@
 
           <p class="mt-5 text-center text-[11px] text-gray-400">
             Tap <span class="font-medium">Next →</span> or <span class="font-medium">swipe →</span> to advance
-            <span class="hidden sm:inline">· <span class="font-medium">Enter</span> check · <span class="font-medium">→</span> next · <span class="font-medium">←</span> back</span>
+            <% unless native_app? %><span class="hidden sm:inline">· <span class="font-medium">Enter</span> check · <span class="font-medium">→</span> next · <span class="font-medium">←</span> back</span><% end %>
           </p>
         </div>
       </div>
@@ -232,7 +232,7 @@
 
         <p data-drill-target="keyHint" class="mt-5 text-center text-[11px] text-gray-400">
           Tap <span class="font-medium">Next →</span> or <span class="font-medium">swipe →</span> to advance
-          <span class="hidden sm:inline">· <span class="font-medium">Enter</span> check · <span class="font-medium">→ ↓ Space</span> next · <span class="font-medium">← ↑</span> back</span>
+          <% unless native_app? %><span class="hidden sm:inline">· <span class="font-medium">Enter</span> check · <span class="font-medium">→ ↓ Space</span> next · <span class="font-medium">← ↑</span> back</span><% end %>
         </p>
 
         <%# ── Flow mode controls (hands-free listen). Hidden until the JS
@@ -244,7 +244,8 @@
             Pause
           </button>
           <p class="text-center text-[11px] text-gray-400">
-            Flow mode · hands-free · <span class="font-medium">Space</span> pause ·
+            Flow mode · hands-free ·
+            <% unless native_app? %><span class="font-medium">Space</span> pause · <% end %>
             <%= link_to "settings", onboarding_path, class: "underline" %>
           </p>
         </div>

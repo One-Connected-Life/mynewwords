@@ -176,6 +176,18 @@ RSpec.describe "Drill options relocation (Finding A)", type: :request do
     end
   end
 
+  describe "no keyboard hints inside the native iOS app (touch, no keyboard)" do
+    it "shows keyboard hints (Space / Enter) on the web" do
+      get play_path
+      expect(response.body).to include("Space")
+    end
+
+    it "omits keyboard hints in the Hotwire Native shell" do
+      get play_path, headers: { "HTTP_USER_AGENT" => "Mozilla/5.0 (iPhone) Hotwire Native iOS; Turbo Native iOS" }
+      expect(response.body).not_to include("Space")
+    end
+  end
+
   describe "flow mode — hands-free listen (hear prompt, gap, hear answer, gap, next)" do
     it "defaults flow_mode OFF with 3s / 6s gaps for a new user" do
       expect(user.flow_mode?).to be(false)
