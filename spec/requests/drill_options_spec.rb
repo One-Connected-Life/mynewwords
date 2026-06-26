@@ -174,6 +174,59 @@ RSpec.describe "Drill options relocation (Finding A)", type: :request do
     end
   end
 
+  describe "flow mode — hands-free listen (hear prompt, gap, hear answer, gap, next)" do
+    it "defaults flow_mode OFF with 3s / 6s gaps for a new user" do
+      expect(user.flow_mode?).to be(false)
+      expect(user.flow_gap_prompt).to eq(3)
+      expect(user.flow_gap_next).to eq(6)
+    end
+
+    it "carries the saved flow prefs into the drill controller dataset" do
+      user.update!(flow_mode: true, flow_gap_prompt: 5, flow_gap_next: 7)
+      get play_path
+      expect(response.body).to include('data-drill-flow-mode-value="true"')
+      expect(response.body).to include('data-drill-flow-gap-prompt-value="5"')
+      expect(response.body).to include('data-drill-flow-gap-next-value="7"')
+    end
+
+    it "defaults the flow dataset to off / 3 / 6 for a new user" do
+      get play_path
+      expect(response.body).to include('data-drill-flow-mode-value="false"')
+      expect(response.body).to include('data-drill-flow-gap-prompt-value="3"')
+      expect(response.body).to include('data-drill-flow-gap-next-value="6"')
+    end
+
+    it "forces the single-language card (no weave) when flow mode is on" do
+      # Even with the weave opted in, flow mode runs single-card.
+      user.update!(show_other_languages: true, learning_languages: %w[nl es], flow_mode: true)
+      get play_path
+      expect(response.body).not_to include("multiCard")
+    end
+
+    it "persists the flow prefs through Settings" do
+      patch onboarding_path, params: {
+        user: { source_language: "en", learning_languages: ["", "nl"],
+                flow_mode: "1", flow_gap_prompt: "4", flow_gap_next: "8" }
+      }
+      user.reload
+      expect(user.flow_mode?).to be(true)
+      expect(user.flow_gap_prompt).to eq(4)
+      expect(user.flow_gap_next).to eq(8)
+    end
+
+    it "rejects out-of-range gaps (keeps timings sane)" do
+      patch onboarding_path, params: {
+        user: { source_language: "en", learning_languages: ["", "nl"], flow_gap_prompt: "999" }
+      }
+      expect(user.reload.flow_gap_prompt).to eq(3) # unchanged — validation blocked it
+    end
+
+    it "exposes a Flow mode control on the Settings page" do
+      get onboarding_path
+      expect(response.body).to include("Flow mode")
+    end
+  end
+
   describe "correct-answer audio feedback (no longer silent on correct)" do
     it "defaults to 'word' (an enthusiastic Yes!)" do
       expect(user.correct_feedback).to eq("word")

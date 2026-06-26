@@ -34,6 +34,13 @@ class DrillsController < ApplicationController
     @autoplay_prompt = current_user.autoplay_prompt?
     @autoplay_wrong  = current_user.autoplay_wrong?
 
+    # Flow mode: hands-free listen (hear prompt → gap → hear answer → gap → next).
+    # Tunable gaps; off by default. Flow runs single-card, so it takes precedence
+    # over the multi-language weave below.
+    @flow_mode        = current_user.flow_mode?
+    @flow_gap_prompt  = current_user.flow_gap_prompt
+    @flow_gap_next    = current_user.flow_gap_next
+
     # Multi-language "weave": source → N targets in a sequential-reveal card.
     # Single-language is the DEFAULT (one prompt, one target); the weave is an
     # opt-in persisted pref (show_other_languages, default OFF) edited in Settings.
@@ -42,7 +49,8 @@ class DrillsController < ApplicationController
     if params.key?(:multi) && current_user.show_other_languages? != (params[:multi] == "1")
       current_user.update!(show_other_languages: params[:multi] == "1")
     end
-    @multi = current_user.multi_language_weave?
+    # Flow mode is a focused single-card listen — never the weave.
+    @multi = current_user.multi_language_weave? && !@flow_mode
     if @multi
       session[:drill_targets] = params[:targets]&.split(",") if params.key?(:targets)
       @target_langs = (session[:drill_targets].presence || current_user.active_learning_languages)

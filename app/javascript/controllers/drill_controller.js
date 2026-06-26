@@ -21,6 +21,8 @@ export default class extends Controller {
     "prompt", "kindTag", "input", "feedback", "answer", "given", "answerSpeak",
     "difficulty", "alts", "detail", "nextBtn", "checkBtn", "backBtn",
     "progress", "score", "bar", "card", "summary", "summaryText", "missed", "voiceHint",
+    // FLOW MODE: hands-free auto-play controls (single-card path only).
+    "flowControls", "flowToggle", "keyHint",
     // Multi-language targets (only present when @multi == true in the view):
     "multiCard", "multiFrom", "multiPrompt", "multiStep",
     "multiDone", "multiLangLabel", "multiInput", "multiUpcoming",
@@ -44,6 +46,10 @@ export default class extends Controller {
     // What to play on a correct answer: "word" (an enthusiastic "Yes!"),
     // "sound" (a quick synth chime), "answer" (speak the English word), "none".
     correctFeedback: String,
+    // FLOW MODE: hands-free listen. flowMode on → speak prompt, wait
+    // flowGapPrompt sec, reveal+speak answer, wait flowGapNext sec, next card,
+    // looping. No typing. Gaps are user-tunable in Settings.
+    flowMode: Boolean, flowGapPrompt: Number, flowGapNext: Number,
   }
 
   connect() {
@@ -62,13 +68,22 @@ export default class extends Controller {
     // - visibilitychange : tab hidden / app backgrounded
     // - turbo:before-cache : Turbo snapshots the page before caching/restoring
     // - pagehide       : bfcache / hard navigation away
-    this.onHide = () => { if (document.hidden) this.stopSpeech() }
+    this.onHide = () => { if (document.hidden) { this.stopSpeech(); if (this.flowActive && !this.flowPaused) this.pauseFlow() } }
     this.onCachePurge = () => this.stopSpeech()
     document.addEventListener("visibilitychange", this.onHide)
     document.addEventListener("turbo:before-cache", this.onCachePurge)
     window.addEventListener("pagehide", this.onCachePurge)
 
     this.bindSwipe()
+
+    // FLOW MODE: hands-free auto-play. Takes over the single-card DOM and runs
+    // the speak→gap→speak→gap→next loop instead of the interactive grade flow.
+    this.flowActive = this.hasFlowModeValue && this.flowModeValue && this.cards.length > 0
+    if (this.flowActive) {
+      this.startFlow()
+      return
+    }
+
     this.render()
   }
 
@@ -78,6 +93,7 @@ export default class extends Controller {
     document.removeEventListener("turbo:before-cache", this.onCachePurge)
     window.removeEventListener("pagehide", this.onCachePurge)
     this.stopSpeech()
+    if (this.flowActive) { this.flowToken = (this.flowToken || 0) + 1; clearTimeout(this._flowTimer) }
     this.unbindSwipe()
   }
 
@@ -133,6 +149,7 @@ export default class extends Controller {
   // One forward step: reveal the answer if still answering, else advance.
   // Same overload as Enter / the big → button / swipe-right.
   forward() {
+    if (this.flowActive) return  // flow drives itself; swipe/keys don't grade
     if (this.results[this.index].graded) this.next()
     else this.grade()
   }
@@ -156,6 +173,12 @@ export default class extends Controller {
   }
 
   onKey(event) {
+    // FLOW MODE: Space toggles pause/resume; nothing else interacts.
+    if (this.flowActive) {
+      if (event.key === " ") { event.preventDefault(); this.toggleFlow() }
+      return
+    }
+
     const result = this.results[this.index]
 
     // Answering: Enter checks; everything else (incl. Space for multi-word) types normally.
@@ -177,6 +200,7 @@ export default class extends Controller {
   }
 
   grade() {
+    if (this.flowActive) return  // flow mode never grades — it's a listen, not a quiz
     const card = this.cards[this.index]
 
     // --- MULTI-LANGUAGE grade: one target at a time ---
@@ -693,6 +717,138 @@ export default class extends Controller {
 
   speak(text, code) {
     pronounce(text, code, { onResult: ({ hasVoice, lang }) => this.flagMissingVoice(hasVoice, lang) })
+  }
+
+  // ─── FLOW MODE ────────────────────────────────────────────────────────────
+  // Hands-free listen: speak prompt → wait flowGapPrompt → reveal + speak answer
+  // → wait flowGapNext → next card, looping. No typing. Single-card path only
+  // (the controller forces @multi off when flow is on). A token cancels any
+  // in-flight sequence when the user pauses / leaves so audio never runs away.
+
+  startFlow() {
+    this.flowPaused = false
+    this.flowToken = 0
+    // Hide the interactive bits; show the flow controls.
+    if (this.hasInputTarget) { this.inputTarget.disabled = true; this.inputTarget.classList.add("hidden") }
+    if (this.hasCheckBtnTarget) this.checkBtnTarget.classList.add("hidden")
+    if (this.hasNextBtnTarget) this.nextBtnTarget.classList.add("hidden")
+    if (this.hasBackBtnTarget) this.backBtnTarget.classList.add("hidden")
+    if (this.hasKeyHintTarget) this.keyHintTarget.classList.add("hidden")
+    if (this.hasCardTarget) this.cardTarget.classList.remove("hidden")
+    this.showFlowControls(true)
+    this.updateFlowToggle()
+    this.runFlow()
+  }
+
+  showFlowControls(on) {
+    if (!this.hasFlowControlsTarget) return
+    this.flowControlsTarget.classList.toggle("hidden", !on)
+    this.flowControlsTarget.classList.toggle("flex", on)
+  }
+
+  updateFlowToggle() {
+    if (this.hasFlowToggleTarget) this.flowToggleTarget.textContent = this.flowPaused ? "Resume" : "Pause"
+  }
+
+  toggleFlow() {
+    if (this.flowPaused) this.resumeFlow()
+    else this.pauseFlow()
+  }
+
+  pauseFlow() {
+    this.flowPaused = true
+    this.flowToken++              // invalidate the running sequence
+    clearTimeout(this._flowTimer)
+    this.stopSpeech()
+    this.updateFlowToggle()
+  }
+
+  resumeFlow() {
+    if (!this.flowActive) return
+    this.flowPaused = false
+    this.updateFlowToggle()
+    this.runFlow()
+  }
+
+  // The driver loop. Each pass plays the current card, then advances (wrapping
+  // at the end — flow is continuous until paused).
+  async runFlow() {
+    const token = ++this.flowToken
+    while (!this.flowPaused && token === this.flowToken) {
+      await this.flowPlayCard(token)
+      if (this.flowPaused || token !== this.flowToken) break
+      this.index = (this.index + 1) % this.cards.length
+    }
+  }
+
+  flowCancelled(token) {
+    return this.flowPaused || token !== this.flowToken
+  }
+
+  async flowPlayCard(token) {
+    const card = this.cards[this.index]
+    if (!card || card.kind === "multi") return  // defensive — flow is single-card
+
+    this.flowShowPrompt(card)
+    await this.flowSpeak(card.prompt, this.fromValue)
+    if (this.flowCancelled(token)) return
+
+    await this.flowWait(this.flowGapPromptValue)
+    if (this.flowCancelled(token)) return
+
+    this.flowRevealAnswer(card)
+    await this.flowSpeak(card.answer, this.toValue)
+    if (this.flowCancelled(token)) return
+
+    await this.flowWait(this.flowGapNextValue)
+  }
+
+  // Speak and resolve when the utterance ends — OR after a length-based safety
+  // timeout, since WebKit (iOS WKWebView) doesn't always fire `onend`.
+  flowSpeak(text, code) {
+    return new Promise((resolve) => {
+      let done = false
+      const finish = () => { if (done) return; done = true; resolve() }
+      const ms = Math.min(9000, 1200 + (text ? text.length : 0) * 90)
+      const timer = setTimeout(finish, ms)
+      pronounce(text, code, {
+        onResult: ({ hasVoice, lang }) => this.flagMissingVoice(hasVoice, lang),
+        onEnd: () => { clearTimeout(timer); finish() },
+      })
+    })
+  }
+
+  flowWait(seconds) {
+    return new Promise((resolve) => {
+      this._flowTimer = setTimeout(resolve, Math.max(0, Number(seconds) || 0) * 1000)
+    })
+  }
+
+  // Prompt-only view: the word, its IPA, answer area cleared. Reuses the
+  // single-card DOM elements.
+  flowShowPrompt(card) {
+    const isSentence = card.kind === "sentence"
+    this.promptTarget.textContent = card.prompt
+    this.promptTarget.className = isSentence
+      ? "mt-2 text-2xl font-medium leading-snug"
+      : "mt-2 text-4xl font-semibold tracking-tight sm:text-5xl"
+    if (this.hasKindTagTarget) this.kindTagTarget.textContent = isSentence ? " · sentence" : ""
+    this.renderPhonetics("prompt", card.prompt_ipa, card.prompt_translit, card.prompt_non_latin)
+    this.clearPhonetics("answer")
+    if (this.hasAnswerTarget) { this.answerTarget.textContent = ""; this.answerTarget.classList.add("invisible") }
+    if (this.hasFeedbackTarget) this.feedbackTarget.textContent = ""
+    if (this.hasAnswerSpeakTarget) this.answerSpeakTarget.classList.add("hidden")
+    if (this.hasGivenTarget) this.givenTarget.classList.add("hidden")
+    if (this.hasDetailTarget) { this.detailTarget.innerHTML = ""; this.detailTarget.classList.add("hidden") }
+    if (this.hasEtymologyTarget) { this.etymologyTarget.innerHTML = ""; this.etymologyTarget.classList.add("hidden") }
+    if (this.hasProgressTarget) this.progressTarget.textContent = `${this.index + 1} / ${this.cards.length}`
+    if (this.hasBarTarget) this.barTarget.style.width = `${((this.index + 1) / this.cards.length) * 100}%`
+  }
+
+  flowRevealAnswer(card) {
+    const full = card.answer_article ? `${card.answer_article} ${card.answer}` : card.answer
+    if (this.hasAnswerTarget) { this.answerTarget.textContent = full; this.answerTarget.classList.remove("invisible") }
+    this.renderPhonetics("answer", card.answer_ipa, card.answer_translit, card.answer_non_latin)
   }
 
   // Audio reward on a correct answer, per the user's Settings choice. Fires from

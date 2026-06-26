@@ -23,6 +23,9 @@
        data-drill-autoplay-prompt-value="<%= @autoplay_prompt ? 'true' : 'false' %>"
        data-drill-autoplay-wrong-value="<%= @autoplay_wrong ? 'true' : 'false' %>"
        data-drill-correct-feedback-value="<%= current_user.correct_feedback %>"
+       data-drill-flow-mode-value="<%= @flow_mode ? 'true' : 'false' %>"
+       data-drill-flow-gap-prompt-value="<%= @flow_gap_prompt %>"
+       data-drill-flow-gap-next-value="<%= @flow_gap_next %>"
        data-drill-record-url-value="<%= attempts_path %>"
        data-drill-ease-url-template-value="<%= ease_term_path('__ID__') %>"
        data-drill-fsrs-enabled-value="<%= ENV['FSRS_ENABLED'] == '1' %>">
@@ -232,10 +235,24 @@
           </button>
         </div>
 
-        <p class="mt-5 text-center text-[11px] text-gray-400">
+        <p data-drill-target="keyHint" class="mt-5 text-center text-[11px] text-gray-400">
           Tap <span class="font-medium">Next →</span> or <span class="font-medium">swipe →</span> to advance
           <span class="hidden sm:inline">· <span class="font-medium">Enter</span> check · <span class="font-medium">→ ↓ Space</span> next · <span class="font-medium">← ↑</span> back</span>
         </p>
+
+        <%# ── Flow mode controls (hands-free listen). Hidden until the JS
+            controller activates flow mode; it then hides the input + Check/Next
+            and drives the auto-play loop. ── %>
+        <div data-drill-target="flowControls" class="mt-6 hidden flex-col items-center gap-3">
+          <button type="button" data-drill-target="flowToggle" data-action="drill#toggleFlow"
+                  class="w-full rounded-2xl bg-brand-indigo px-8 py-5 text-center text-lg font-semibold text-white shadow-sm transition active:scale-95 hover:bg-brand-indigo/90">
+            Pause
+          </button>
+          <p class="text-center text-[11px] text-gray-400">
+            Flow mode · hands-free · <span class="font-medium">Space</span> pause ·
+            <%= link_to "settings", onboarding_path, class: "underline" %>
+          </p>
+        </div>
       </div>
     <% end %>
 

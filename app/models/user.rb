@@ -30,6 +30,10 @@ class User < ApplicationRecord
   validates :drill_direction, inclusion: { in: %w[forward random] }
   validates :drill_order, inclusion: { in: %w[smart shuffle] }
   validates :correct_feedback, inclusion: { in: %w[word sound answer none] }
+  # Flow-mode timings: keep them sane (0–60s). The 3s prompt-gap default is
+  # deliberately tunable — "I'd probably need more than 3 seconds to guess."
+  validates :flow_gap_prompt, :flow_gap_next,
+            numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 60 }
   validate :target_differs_from_source
   validate :learning_languages_are_valid
 
