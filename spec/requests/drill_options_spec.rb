@@ -64,25 +64,27 @@ RSpec.describe "Drill options relocation (Finding A)", type: :request do
   end
 
   describe "default direction is a respected Settings preference (coordinator add)" do
+    # The drill header no longer prints "Dutch → English" (cluster moved to
+    # Settings); direction now shows on the card itself — the answer input's
+    # placeholder is the TO language ("english…" for NL→EN, "dutch…" for EN→NL).
     it "defaults bare /play to the recall-first direction (target→source, NL→EN)" do
       # New users default to recall_first = true (recognition, the easier path).
       expect(user.drill_recall_first).to be(true)
       get play_path
       expect(response).to have_http_status(:ok)
-      # The drill header shows the resolved direction; NL→EN, not EN→NL.
-      expect(response.body).to include("Dutch → English")
-      expect(response.body).not_to include("English → Dutch")
+      expect(response.body).to include('placeholder="english…"')
+      expect(response.body).not_to include('placeholder="dutch…"')
     end
 
     it "respects a saved production preference (source→target, EN→NL)" do
       user.update!(drill_recall_first: false)
       get play_path
-      expect(response.body).to include("English → Dutch")
+      expect(response.body).to include('placeholder="dutch…"')
     end
 
     it "lets an explicit from/to override the saved default for that request" do
       get play_path(from: "en", to: "nl")  # explicit EN→NL (swap), overrides recall-first
-      expect(response.body).to include("English → Dutch")
+      expect(response.body).to include('placeholder="dutch…"')
     end
 
     it "persists the direction pref through Settings" do
