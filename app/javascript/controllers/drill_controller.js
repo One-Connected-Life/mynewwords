@@ -94,6 +94,11 @@ export default class extends Controller {
     window.removeEventListener("pagehide", this.onCachePurge)
     this.stopSpeech()
     if (this.flowActive) { this.flowToken = (this.flowToken || 0) + 1; clearTimeout(this._flowTimer) }
+    this.stopWarmKeepAlive()
+    if (this._warmUnlock) {
+      ;["pointerdown", "keydown", "touchstart"].forEach((e) => window.removeEventListener(e, this._warmUnlock))
+      this._warmUnlock = null
+    }
     this.unbindSwipe()
   }
 
@@ -728,6 +733,7 @@ export default class extends Controller {
   startFlow() {
     this.flowPaused = false
     this.flowToken = 0
+    this.startWarmKeepAlive()
     // Hide the interactive bits; show the flow controls.
     if (this.hasInputTarget) { this.inputTarget.disabled = true; this.inputTarget.classList.add("hidden") }
     if (this.hasCheckBtnTarget) this.checkBtnTarget.classList.add("hidden")
@@ -760,14 +766,50 @@ export default class extends Controller {
     this.flowToken++              // invalidate the running sequence
     clearTimeout(this._flowTimer)
     this.stopSpeech()
+    this.stopWarmKeepAlive()
     this.updateFlowToggle()
   }
 
   resumeFlow() {
     if (!this.flowActive) return
     this.flowPaused = false
+    this.startWarmKeepAlive()
     this.updateFlowToggle()
     this.runFlow()
+  }
+
+  // Keep the audio output route awake through Flow's silent gaps. Without this,
+  // the OS powers the route down between words and the next utterance loses its
+  // first ~1s to cold-start (the clip Mihai hears). A looping buffer of digital
+  // SILENCE holds the device stream open — inaudible, no hum. AudioContext can't
+  // start without a user gesture, so we resume() on start and on the first
+  // interaction (Flow auto-runs on load, where there may be no gesture yet).
+  startWarmKeepAlive() {
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext
+      if (!Ctx) return
+      this.audioCtx ||= new Ctx()
+      const ctx = this.audioCtx
+      if (ctx.state === "suspended") ctx.resume()
+      if (!this._warmUnlock) {
+        this._warmUnlock = () => { try { if (this.audioCtx?.state === "suspended") this.audioCtx.resume() } catch (_e) {} }
+        ;["pointerdown", "keydown", "touchstart"].forEach((e) =>
+          window.addEventListener(e, this._warmUnlock, { passive: true }))
+      }
+      if (this._warmNode) return
+      const rate = Math.floor(ctx.sampleRate) || 22050
+      const buf = ctx.createBuffer(1, rate, rate)   // 1s of silence (zeros)
+      const src = ctx.createBufferSource()
+      src.buffer = buf
+      src.loop = true
+      src.connect(ctx.destination)
+      src.start()
+      this._warmNode = src
+    } catch (_e) { /* audio unavailable — flow still works, just may clip */ }
+  }
+
+  stopWarmKeepAlive() {
+    if (this._warmNode) { try { this._warmNode.stop() } catch (_e) {} this._warmNode = null }
   }
 
   // The driver loop. Each pass plays the current card, then advances (wrapping
