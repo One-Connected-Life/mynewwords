@@ -76,7 +76,63 @@ class Deck < ApplicationRecord
          .filter_map { |tr| tr.text.presence }
   end
 
+  # Build a drillable deck from a SongCatalog::Song for this user. Idempotent per song:
+  # re-adding a song the user already has just returns the existing deck (no dupes).
+  # Words land as kind "word" (verbs included — a verb is still a word, it just also
+  # carries a conjugation table); example sentences land as kind "sentence".
+  def self.build_song(user, song)
+    existing = user.decks.find_by(listen_url: song.listen_url)
+    return existing if existing
+
+    deck = user.decks.create!(
+      name: song.name, topic: "#{song.title} — #{song.artist}",
+      artist: song.artist, year: song.year, listen_url: song.listen_url,
+      status: "ready", position: (user.decks.maximum(:position) || -1) + 1
+    )
+    deck.absorb_song(song)
+    deck
+  end
+
+  def song? = listen_url.present?
+
+  # Persist a song's words (with verb conjugation tables) and example sentences.
+  def absorb_song(song)
+    absorb(song.words, reviewed: true) # words + nl/en translations, dedup, phonetics
+    attach_conjugations(song.words)
+    absorb_sentences(song.sentences)
+  end
+
   private
+
+  # After words are absorbed, store each verb's conjugation table (JSON) on its nl
+  # translation. Matched by target text (downcased), so it survives absorb's dedupe.
+  def attach_conjugations(words)
+    target = user.target_language
+    by_text = terms.includes(:translations).flat_map(&:translations)
+                   .select { |tr| tr.language == target }
+                   .index_by { |tr| tr.text.to_s.downcase }
+
+    words.each do |w|
+      conj = w["conjugation"]
+      next if conj.blank?
+      tr = by_text[strip_redundant_article(w["target"].to_s.strip, w["article"].presence).downcase]
+      tr&.update!(conjugation: JSON.generate(conj))
+    end
+  end
+
+  # Example sentences (nl + en) → kind "sentence" terms the drill sprinkles in.
+  def absorb_sentences(sentences)
+    position = terms.maximum(:position) || 0
+    Array(sentences).each do |row|
+      nl = row["nl"].to_s.strip
+      en = row["en"].to_s.strip
+      next if nl.blank? || en.blank?
+
+      term = terms.create!(kind: "sentence", position: (position += 1), reviewed: true)
+      term.translations.create!(language: "nl", text: nl)
+      term.translations.create!(language: "en", text: en)
+    end
+  end
 
   # Models often repeat the article inside the word ("la cuisine" + article "la").
   # Strip it so with_article doesn't double it ("la la cuisine").

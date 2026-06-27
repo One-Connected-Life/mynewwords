@@ -31,6 +31,18 @@ class Translation < ApplicationRecord
   def ipa = phonetics_data["ipa"]
   def translit = phonetics_data["translit"]
 
+  # conjugation column stores a verb's table as JSON:
+  #   { "infinitive", "present" => {"ik"=>..., ...}, "past" => {...}, "future" => {...} }
+  # Empty hash for non-verbs (or unparseable data).
+  def conjugation_data
+    return {} if conjugation.blank?
+    JSON.parse(conjugation)
+  rescue JSON::ParserError
+    {}
+  end
+
+  def verb? = conjugation.present?
+
   def non_latin?
     NON_LATIN.include?(language)
   end

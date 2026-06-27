@@ -1,0 +1,811 @@
+{
+  "title": "Het Dorp",
+  "artist": "Wim Sonneveld",
+  "year": 1974,
+  "words": [
+    {
+      "target": "dorp",
+      "source": "village",
+      "article": "het",
+      "etymology": "Old Dutch 'thorp', settlement of people",
+      "mnemonic": "A 'dorp' is where villagers drop anchor for life",
+      "ipa": "dɔrp",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "straat",
+      "source": "street",
+      "article": "de",
+      "etymology": "Latin 'strata via', paved road",
+      "mnemonic": "A straight road is a straat",
+      "ipa": "straːt",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "kerk",
+      "source": "church",
+      "article": "de",
+      "etymology": "Greek 'kyriakon', house of the Lord",
+      "mnemonic": "Quirky old kerk with a tall steeple",
+      "ipa": "kɛrk",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "huis",
+      "source": "house",
+      "article": "het",
+      "etymology": "Proto-Germanic 'husam', dwelling place",
+      "mnemonic": "House sounds like huis — same meaning too",
+      "ipa": "hœys",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "tuin",
+      "source": "garden",
+      "article": "de",
+      "etymology": "Proto-Germanic 'tunam', enclosed space",
+      "mnemonic": "Tune into nature in the tuin",
+      "ipa": "tœyn",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "boom",
+      "source": "tree",
+      "article": "de",
+      "etymology": "Proto-Germanic 'baumaz', tall plant",
+      "mnemonic": "A tree goes boom when it falls",
+      "ipa": "boːm",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "mensen",
+      "source": "people",
+      "article": "de",
+      "etymology": "Old High German 'mennisco', human being",
+      "mnemonic": "Mensen — many, many human beings",
+      "ipa": "mɛnsə(n)",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "leven",
+      "source": "life / to live",
+      "article": "het",
+      "etymology": "Proto-Germanic 'libainan', to remain, live",
+      "mnemonic": "Leven — living life with love and vigor",
+      "ipa": "leːvə(n)",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "leven",
+        "present": {
+          "ik": "leef",
+          "jij": "leeft",
+          "hij": "leeft",
+          "wij": "leven",
+          "jullie": "leven",
+          "zij": "leven"
+        },
+        "past": {
+          "ik": "leefde",
+          "jij": "leefde",
+          "hij": "leefde",
+          "wij": "leefden",
+          "jullie": "leefden",
+          "zij": "leefden"
+        },
+        "future": {
+          "ik": "zal leven",
+          "jij": "zal leven",
+          "hij": "zal leven",
+          "wij": "zullen leven",
+          "jullie": "zullen leven",
+          "zij": "zullen leven"
+        }
+      }
+    },
+    {
+      "target": "herinneren",
+      "source": "to remember",
+      "article": null,
+      "etymology": "From 'binnen', inner — to bring back inside",
+      "mnemonic": "Her inner memories — herinneren",
+      "ipa": "hɛˈrɪnərə(n)",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "herinneren",
+        "present": {
+          "ik": "herinner",
+          "jij": "herinnert",
+          "hij": "herinnert",
+          "wij": "herinneren",
+          "jullie": "herinneren",
+          "zij": "herinneren"
+        },
+        "past": {
+          "ik": "herinnerde",
+          "jij": "herinnerde",
+          "hij": "herinnerde",
+          "wij": "herinnerden",
+          "jullie": "herinnerden",
+          "zij": "herinnerden"
+        },
+        "future": {
+          "ik": "zal herinneren",
+          "jij": "zal herinneren",
+          "hij": "zal herinneren",
+          "wij": "zullen herinneren",
+          "jullie": "zullen herinneren",
+          "zij": "zullen herinneren"
+        }
+      }
+    },
+    {
+      "target": "verlangen",
+      "source": "to long for / longing",
+      "article": "het",
+      "etymology": "From 'lang', long — yearning stretched over time",
+      "mnemonic": "A long, lingering yearning — verlangen",
+      "ipa": "vɛrˈlɑŋə(n)",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "verlangen",
+        "present": {
+          "ik": "verlang",
+          "jij": "verlangt",
+          "hij": "verlangt",
+          "wij": "verlangen",
+          "jullie": "verlangen",
+          "zij": "verlangen"
+        },
+        "past": {
+          "ik": "verlangde",
+          "jij": "verlangde",
+          "hij": "verlangde",
+          "wij": "verlangden",
+          "jullie": "verlangden",
+          "zij": "verlangden"
+        },
+        "future": {
+          "ik": "zal verlangen",
+          "jij": "zal verlangen",
+          "hij": "zal verlangen",
+          "wij": "zullen verlangen",
+          "jullie": "zullen verlangen",
+          "zij": "zullen verlangen"
+        }
+      }
+    },
+    {
+      "target": "terugkeren",
+      "source": "to return",
+      "article": null,
+      "etymology": "Separable: 'terug' (back) + 'keren' (to turn)",
+      "mnemonic": "Terug means back — keren means turn, so turn back",
+      "ipa": "ˈtɛrʏxˌkeːrə(n)",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "terugkeren",
+        "present": {
+          "ik": "keer terug",
+          "jij": "keert terug",
+          "hij": "keert terug",
+          "wij": "keren terug",
+          "jullie": "keren terug",
+          "zij": "keren terug"
+        },
+        "past": {
+          "ik": "keerde terug",
+          "jij": "keerde terug",
+          "hij": "keerde terug",
+          "wij": "keerden terug",
+          "jullie": "keerden terug",
+          "zij": "keerden terug"
+        },
+        "future": {
+          "ik": "zal terugkeren",
+          "jij": "zal terugkeren",
+          "hij": "zal terugkeren",
+          "wij": "zullen terugkeren",
+          "jullie": "zullen terugkeren",
+          "zij": "zullen terugkeren"
+        }
+      }
+    },
+    {
+      "target": "veranderen",
+      "source": "to change",
+      "article": null,
+      "etymology": "From 'ander', other — to become other",
+      "mnemonic": "Verandering — change to something other (ander)",
+      "ipa": "vɛˈrɑndərə(n)",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "veranderen",
+        "present": {
+          "ik": "verander",
+          "jij": "verandert",
+          "hij": "verandert",
+          "wij": "veranderen",
+          "jullie": "veranderen",
+          "zij": "veranderen"
+        },
+        "past": {
+          "ik": "veranderde",
+          "jij": "veranderde",
+          "hij": "veranderde",
+          "wij": "veranderden",
+          "jullie": "veranderden",
+          "zij": "veranderden"
+        },
+        "future": {
+          "ik": "zal veranderen",
+          "jij": "zal veranderen",
+          "hij": "zal veranderen",
+          "wij": "zullen veranderen",
+          "jullie": "zullen veranderen",
+          "zij": "zullen veranderen"
+        }
+      }
+    },
+    {
+      "target": "kennen",
+      "source": "to know (a person or place)",
+      "article": null,
+      "etymology": "Proto-Germanic 'kannijaną', to recognize",
+      "mnemonic": "Can you ken (know) someone? Kennen!",
+      "ipa": "kɛnə(n)",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "kennen",
+        "present": {
+          "ik": "ken",
+          "jij": "kent",
+          "hij": "kent",
+          "wij": "kennen",
+          "jullie": "kennen",
+          "zij": "kennen"
+        },
+        "past": {
+          "ik": "kende",
+          "jij": "kende",
+          "hij": "kende",
+          "wij": "kenden",
+          "jullie": "kenden",
+          "zij": "kenden"
+        },
+        "future": {
+          "ik": "zal kennen",
+          "jij": "zal kennen",
+          "hij": "zal kennen",
+          "wij": "zullen kennen",
+          "jullie": "zullen kennen",
+          "zij": "zullen kennen"
+        }
+      }
+    },
+    {
+      "target": "lopen",
+      "source": "to walk",
+      "article": null,
+      "etymology": "Proto-Germanic 'hlaupaną', to run or walk",
+      "mnemonic": "Looping around the village — lopen",
+      "ipa": "loːpə(n)",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "lopen",
+        "present": {
+          "ik": "loop",
+          "jij": "loopt",
+          "hij": "loopt",
+          "wij": "lopen",
+          "jullie": "lopen",
+          "zij": "lopen"
+        },
+        "past": {
+          "ik": "liep",
+          "jij": "liep",
+          "hij": "liep",
+          "wij": "liepen",
+          "jullie": "liepen",
+          "zij": "liepen"
+        },
+        "future": {
+          "ik": "zal lopen",
+          "jij": "zal lopen",
+          "hij": "zal lopen",
+          "wij": "zullen lopen",
+          "jullie": "zullen lopen",
+          "zij": "zullen lopen"
+        }
+      }
+    },
+    {
+      "target": "zien",
+      "source": "to see",
+      "article": null,
+      "etymology": "Proto-Germanic 'sehwanan', to see",
+      "mnemonic": "Zen sight — quietly zien everything",
+      "ipa": "ziːn",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "zien",
+        "present": {
+          "ik": "zie",
+          "jij": "ziet",
+          "hij": "ziet",
+          "wij": "zien",
+          "jullie": "zien",
+          "zij": "zien"
+        },
+        "past": {
+          "ik": "zag",
+          "jij": "zag",
+          "hij": "zag",
+          "wij": "zagen",
+          "jullie": "zagen",
+          "zij": "zagen"
+        },
+        "future": {
+          "ik": "zal zien",
+          "jij": "zal zien",
+          "hij": "zal zien",
+          "wij": "zullen zien",
+          "jullie": "zullen zien",
+          "zij": "zullen zien"
+        }
+      }
+    },
+    {
+      "target": "wonen",
+      "source": "to live / to reside",
+      "article": null,
+      "etymology": "Proto-Germanic 'wunōną', to dwell, be content",
+      "mnemonic": "You won a home — now wonen there",
+      "ipa": "ˈwoːnə(n)",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "wonen",
+        "present": {
+          "ik": "woon",
+          "jij": "woont",
+          "hij": "woont",
+          "wij": "wonen",
+          "jullie": "wonen",
+          "zij": "wonen"
+        },
+        "past": {
+          "ik": "woonde",
+          "jij": "woonde",
+          "hij": "woonde",
+          "wij": "woonden",
+          "jullie": "woonden",
+          "zij": "woonden"
+        },
+        "future": {
+          "ik": "zal wonen",
+          "jij": "zal wonen",
+          "hij": "zal wonen",
+          "wij": "zullen wonen",
+          "jullie": "zullen wonen",
+          "zij": "zullen wonen"
+        }
+      }
+    },
+    {
+      "target": "vertrekken",
+      "source": "to leave / to depart",
+      "article": null,
+      "etymology": "Separable: 'ver' + 'trekken' (to pull away)",
+      "mnemonic": "Trek away — vertrekken means to depart",
+      "ipa": "vɛrˈtrɛkə(n)",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "vertrekken",
+        "present": {
+          "ik": "vertrek",
+          "jij": "vertrekt",
+          "hij": "vertrekt",
+          "wij": "vertrekken",
+          "jullie": "vertrekken",
+          "zij": "vertrekken"
+        },
+        "past": {
+          "ik": "vertrok",
+          "jij": "vertrok",
+          "hij": "vertrok",
+          "wij": "vertrokken",
+          "jullie": "vertrokken",
+          "zij": "vertrokken"
+        },
+        "future": {
+          "ik": "zal vertrekken",
+          "jij": "zal vertrekken",
+          "hij": "zal vertrekken",
+          "wij": "zullen vertrekken",
+          "jullie": "zullen vertrekken",
+          "zij": "zullen vertrekken"
+        }
+      }
+    },
+    {
+      "target": "vergeten",
+      "source": "to forget",
+      "article": null,
+      "etymology": "Proto-Germanic 'fragetaną', to lose one's grip on",
+      "mnemonic": "You get it, then ver-get-en — you forget it",
+      "ipa": "vɛrˈɣeːtə(n)",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "vergeten",
+        "present": {
+          "ik": "vergeet",
+          "jij": "vergeet",
+          "hij": "vergeet",
+          "wij": "vergeten",
+          "jullie": "vergeten",
+          "zij": "vergeten"
+        },
+        "past": {
+          "ik": "vergat",
+          "jij": "vergat",
+          "hij": "vergat",
+          "wij": "vergaten",
+          "jullie": "vergaten",
+          "zij": "vergaten"
+        },
+        "future": {
+          "ik": "zal vergeten",
+          "jij": "zal vergeten",
+          "hij": "zal vergeten",
+          "wij": "zullen vergeten",
+          "jullie": "zullen vergeten",
+          "zij": "zullen vergeten"
+        }
+      }
+    },
+    {
+      "target": "missen",
+      "source": "to miss",
+      "article": null,
+      "etymology": "Old English 'missan', to fail to hit or find",
+      "mnemonic": "Miss someone — missen them dearly",
+      "ipa": "mɪsə(n)",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "missen",
+        "present": {
+          "ik": "mis",
+          "jij": "mist",
+          "hij": "mist",
+          "wij": "missen",
+          "jullie": "missen",
+          "zij": "missen"
+        },
+        "past": {
+          "ik": "miste",
+          "jij": "miste",
+          "hij": "miste",
+          "wij": "misten",
+          "jullie": "misten",
+          "zij": "misten"
+        },
+        "future": {
+          "ik": "zal missen",
+          "jij": "zal missen",
+          "hij": "zal missen",
+          "wij": "zullen missen",
+          "jullie": "zullen missen",
+          "zij": "zullen missen"
+        }
+      }
+    },
+    {
+      "target": "oud",
+      "source": "old",
+      "article": null,
+      "etymology": "Proto-Germanic 'aldaz', grown up, old",
+      "mnemonic": "Old — oud, sounds like 'old' without the L",
+      "ipa": "ɑut",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "klein",
+      "source": "small",
+      "article": null,
+      "etymology": "Middle Dutch 'cleine', fine, small",
+      "mnemonic": "Klein — clean and tiny, nothing large",
+      "ipa": "klɛɪn",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "stil",
+      "source": "quiet / still",
+      "article": null,
+      "etymology": "Proto-Germanic 'stillaz', motionless",
+      "mnemonic": "Still and quiet — stil",
+      "ipa": "stɪl",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "rustig",
+      "source": "peaceful / calm",
+      "article": null,
+      "etymology": "From 'rust' (rest) + suffix -ig",
+      "mnemonic": "Rustic and rusty calm — rustig village",
+      "ipa": "ˈrʏstəx",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "vertrouwd",
+      "source": "familiar / trusted",
+      "article": null,
+      "etymology": "From 'vertrouwen', to trust; 'trouw' means faithful",
+      "mnemonic": "True and trusted — vertrouwd feels like home",
+      "ipa": "vɛrˈtrɑut",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "vroeger",
+      "source": "earlier / in the past",
+      "article": null,
+      "etymology": "Comparative of 'vroeg' (early), Proto-Germanic origin",
+      "mnemonic": "Vroeger — 'vroeg' means early, vroeger means before",
+      "ipa": "ˈvruːɣər",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "nog",
+      "source": "still / yet",
+      "article": null,
+      "etymology": "Middle Dutch 'noch', Proto-Germanic origin",
+      "mnemonic": "Nog — not gone yet, still there",
+      "ipa": "nɔx",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "altijd",
+      "source": "always",
+      "article": null,
+      "etymology": "From 'al' (all) + 'tijd' (time), all the time",
+      "mnemonic": "All time — altijd, always",
+      "ipa": "ˈɑltɛit",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "nooit",
+      "source": "never",
+      "article": null,
+      "etymology": "From 'ne' (not) + 'ooit' (ever), not ever",
+      "mnemonic": "No way, nooit — never ever",
+      "ipa": "noːit",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "herinneringen",
+      "source": "memories",
+      "article": "de",
+      "etymology": "Plural of 'herinnering'; from 'binnen', inner recollection",
+      "mnemonic": "Her inner rings of memory — herinneringen",
+      "ipa": "hɛˌrɪnərɪŋə(n)",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "jeugd",
+      "source": "youth",
+      "article": "de",
+      "etymology": "Proto-Germanic 'jugunþiz', period of being young",
+      "mnemonic": "Juggling youth — jeugd",
+      "ipa": "jøːxt",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "vrede",
+      "source": "peace",
+      "article": "de",
+      "etymology": "Proto-Germanic 'friþuz', love and friendship",
+      "mnemonic": "Vrede — a village full of friendly peace",
+      "ipa": "ˈvreːdə",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "geluk",
+      "source": "happiness / luck",
+      "article": "het",
+      "etymology": "Middle Dutch 'gelucke', fate, fortune",
+      "mnemonic": "Good luck brings geluk — happiness",
+      "ipa": "ɣəˈlʏk",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "verdriet",
+      "source": "sorrow / grief",
+      "article": "het",
+      "etymology": "From 'verdrieten', to grieve; 'ver' + 'driet' (distress)",
+      "mnemonic": "Ver-driet — grief that drifts very deep",
+      "ipa": "vɛrˈdriːt",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "vrienden",
+      "source": "friends",
+      "article": "de",
+      "etymology": "Plural of 'vriend'; Proto-Germanic 'frijōndz', beloved one",
+      "mnemonic": "Friends — vrienden, very close people",
+      "ipa": "ˈvriːndə(n)",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "buurt",
+      "source": "neighbourhood",
+      "article": "de",
+      "etymology": "Middle Dutch 'buerte', district, turn of duty",
+      "mnemonic": "Your buurt is your own backyard neighbourhood",
+      "ipa": "byːrt",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "bezoeken",
+      "source": "to visit",
+      "article": null,
+      "etymology": "From 'zoeken' (to seek) + 'be-', to seek out a place",
+      "mnemonic": "Be seeking someone — bezoeken, to visit",
+      "ipa": "bəˈzuːkə(n)",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "bezoeken",
+        "present": {
+          "ik": "bezoek",
+          "jij": "bezoekt",
+          "hij": "bezoekt",
+          "wij": "bezoeken",
+          "jullie": "bezoeken",
+          "zij": "bezoeken"
+        },
+        "past": {
+          "ik": "bezocht",
+          "jij": "bezocht",
+          "hij": "bezocht",
+          "wij": "bezochten",
+          "jullie": "bezochten",
+          "zij": "bezochten"
+        },
+        "future": {
+          "ik": "zal bezoeken",
+          "jij": "zal bezoeken",
+          "hij": "zal bezoeken",
+          "wij": "zullen bezoeken",
+          "jullie": "zullen bezoeken",
+          "zij": "zullen bezoeken"
+        }
+      }
+    },
+    {
+      "target": "groeien",
+      "source": "to grow",
+      "article": null,
+      "etymology": "Proto-Germanic 'grōaną', to grow, flourish",
+      "mnemonic": "Grow — groeien, like a tree in the village",
+      "ipa": "ˈɣruːjə(n)",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "groeien",
+        "present": {
+          "ik": "groei",
+          "jij": "groeit",
+          "hij": "groeit",
+          "wij": "groeien",
+          "jullie": "groeien",
+          "zij": "groeien"
+        },
+        "past": {
+          "ik": "groeide",
+          "jij": "groeide",
+          "hij": "groeide",
+          "wij": "groeiden",
+          "jullie": "groeiden",
+          "zij": "groeiden"
+        },
+        "future": {
+          "ik": "zal groeien",
+          "jij": "zal groeien",
+          "hij": "zal groeien",
+          "wij": "zullen groeien",
+          "jullie": "zullen groeien",
+          "zij": "zullen groeien"
+        }
+      }
+    },
+    {
+      "target": "herkennen",
+      "source": "to recognise",
+      "article": null,
+      "etymology": "From 'kennen' (to know) + 'her-' (again), to know again",
+      "mnemonic": "Her-kennen — knowing her again, recognising",
+      "ipa": "hɛrˈkɛnə(n)",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "herkennen",
+        "present": {
+          "ik": "herken",
+          "jij": "herkent",
+          "hij": "herkent",
+          "wij": "herkennen",
+          "jullie": "herkennen",
+          "zij": "herkennen"
+        },
+        "past": {
+          "ik": "herkende",
+          "jij": "herkende",
+          "hij": "herkende",
+          "wij": "herkenden",
+          "jullie": "herkenden",
+          "zij": "herkenden"
+        },
+        "future": {
+          "ik": "zal herkennen",
+          "jij": "zal herkennen",
+          "hij": "zal herkennen",
+          "wij": "zullen herkennen",
+          "jullie": "zullen herkennen",
+          "zij": "zullen herkennen"
+        }
+      }
+    }
+  ],
+  "sentences": [
+    {
+      "nl": "Ik woon in een klein dorp, maar ik voel me altijd thuis.",
+      "en": "I live in a small village, but I always feel at home."
+    },
+    {
+      "nl": "Vroeger liepen de kinderen rustig door de straat.",
+      "en": "In the past, the children walked calmly through the street."
+    },
+    {
+      "nl": "Mijn vrienden en ik herinneren ons de oude kerk nog goed.",
+      "en": "My friends and I still remember the old church well."
+    },
+    {
+      "nl": "Het dorp is veranderd, maar de grote boom in de tuin staat er nog.",
+      "en": "The village has changed, but the big tree in the garden is still there."
+    },
+    {
+      "nl": "Ze verlangen naar de vrede en het geluk van hun jeugd.",
+      "en": "They long for the peace and happiness of their youth."
+    },
+    {
+      "nl": "Als ik terugkeer naar mijn buurt, herken ik bijna niemand meer.",
+      "en": "When I return to my neighbourhood, I barely recognise anyone anymore."
+    },
+    {
+      "nl": "Hij mist het vertrouwde leven in het kleine dorp.",
+      "en": "He misses the familiar life in the small village."
+    },
+    {
+      "nl": "Nadat ze vertrokken waren, bleef het verdriet lang in haar hart.",
+      "en": "After they had left, the sorrow stayed in her heart for a long time."
+    }
+  ]
+}

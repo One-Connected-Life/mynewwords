@@ -523,8 +523,9 @@ export default class extends Controller {
   // next to Russian) into its own bigger, set-apart card. Hidden when absent.
   renderEtymology(card) {
     if (!this.hasEtymologyTarget) return
-    const { etymology, mnemonic } = card
-    if (!etymology && !mnemonic) {
+    const { etymology, mnemonic, conjugation } = card
+    const conjHtml = this._conjugationHtml(conjugation)
+    if (!etymology && !mnemonic && !conjHtml) {
       this.etymologyTarget.innerHTML = ""
       this.etymologyTarget.classList.add("hidden")
       return
@@ -532,9 +533,33 @@ export default class extends Controller {
     let html = `<div class="rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-left dark:border-gray-800 dark:bg-gray-900/40">`
     if (etymology) html += `<p class="text-sm text-gray-700 dark:text-gray-200"><span class="font-semibold text-gray-500 dark:text-gray-400">from</span> ${this._esc(etymology)}</p>`
     if (mnemonic)  html += `<p class="${etymology ? "mt-1 " : ""}text-sm text-gray-600 dark:text-gray-300">💡 ${this._esc(mnemonic)}</p>`
+    if (conjHtml)  html += `<div class="${etymology || mnemonic ? "mt-3 " : ""}">${conjHtml}</div>`
     html += `</div>`
     this.etymologyTarget.innerHTML = html
     this.etymologyTarget.classList.remove("hidden")
+  }
+
+  // Compact conjugation table for a verb card (present/past/future × pronouns).
+  // Returns "" when the card has no conjugation (non-verb).
+  _conjugationHtml(conj) {
+    if (!conj || typeof conj !== "object") return ""
+    const pronouns = ["ik", "jij", "hij", "wij", "jullie", "zij"]
+    const tenses = [["present", "tegenw."], ["past", "verl."], ["future", "toek."]]
+      .filter(([k]) => conj[k] && Object.keys(conj[k]).length)
+    if (!tenses.length) return ""
+
+    const head = tenses.map(([k, nl]) =>
+      `<th class="px-2 py-1 font-medium">${k} <span class="font-normal text-gray-400">${nl}</span></th>`).join("")
+    const rows = pronouns.map((p) => {
+      const cells = tenses.map(([k]) => `<td class="px-2 py-1 tabular-nums">${this._esc((conj[k] || {})[p] || "")}</td>`).join("")
+      return `<tr class="border-t border-gray-100 dark:border-gray-800"><td class="px-2 py-1 text-gray-400">${p}</td>${cells}</tr>`
+    }).join("")
+
+    return `<div class="overflow-hidden rounded-md border border-gray-200 dark:border-gray-800">
+      <table class="w-full border-collapse text-xs">
+        <thead><tr class="bg-gray-100 text-left text-[10px] uppercase tracking-wide text-gray-500 dark:bg-gray-800 dark:text-gray-400"><th class="px-2 py-1"></th>${head}</tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>`
   }
 
   // --- phonetics helpers ---

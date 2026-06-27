@@ -79,6 +79,10 @@ Rails.application.routes.draw do
   # Add tab (nav rework): a launcher hub linking to the deck-creation flows.
   get "add", to: "pages#add", as: :add
 
+  # Song decks: browse the catalogue, turn a song into a drillable deck (instant).
+  get  "songs",       to: "songs#index",  as: :songs
+  post "songs/:slug", to: "songs#create", as: :add_song
+
   # The drill runner: ?deck=<slug|all|misses>&from=<lang>&to=<lang>
   get "play", to: "drills#play", as: :play
 

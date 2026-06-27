@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_27_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_27_130000) do
   create_table "attempts", force: :cascade do |t|
     t.boolean "correct", default: false, null: false
     t.datetime "created_at", null: false
@@ -26,8 +26,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_27_120000) do
   end
 
   create_table "decks", force: :cascade do |t|
+    t.string "artist"
     t.datetime "created_at", null: false
     t.boolean "expanding", default: false, null: false
+    t.string "listen_url"
     t.string "name", null: false
     t.integer "position", default: 0, null: false
     t.string "slug", null: false
@@ -36,6 +38,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_27_120000) do
     t.string "topic"
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "year"
     t.index ["user_id", "slug"], name: "index_decks_on_user_id_and_slug", unique: true
     t.index ["user_id"], name: "index_decks_on_user_id"
   end
@@ -104,6 +107,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_27_120000) do
   create_table "translations", force: :cascade do |t|
     t.string "alternates"
     t.string "article"
+    t.text "conjugation"
     t.datetime "created_at", null: false
     t.text "etymology"
     t.string "language", null: false

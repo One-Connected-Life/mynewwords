@@ -172,7 +172,11 @@
             <td class="px-3 py-1.5 whitespace-nowrap text-gray-500 dark:text-gray-400" data-sort-value="<%= deck.created_at.to_i %>" title="<%= deck.created_at.strftime("%-d %b %Y, %H:%M") %>"><%= deck.created_at.strftime("%-d %b %y") %></td>
             <td class="px-3 py-1.5">
               <div class="flex items-center justify-end gap-1.5 text-xs">
-                <% if deck.topic.present? %>
+                <% if deck.song? %>
+                  <%= link_to "▶︎ Listen", deck.listen_url, target: "_blank", rel: "noopener",
+                        class: "rounded-md border border-gray-300 px-2 py-0.5 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800",
+                        title: "#{deck.artist} · #{deck.year}" %>
+                <% elsif deck.topic.present? %>
                   <%= button_to "+ words", expand_deck_path(deck), method: :post,
                         class: "rounded-md border border-emerald-400 px-2 py-0.5 text-emerald-700 hover:bg-emerald-50 dark:border-emerald-700 dark:text-emerald-300 dark:hover:bg-emerald-900/30",
                         form: { data: { turbo_confirm: "Add a fresh batch of “#{deck.name}” words to review?" } },

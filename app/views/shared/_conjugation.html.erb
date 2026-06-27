@@ -1,0 +1,27 @@
+<%# Verb conjugation table. Pass `conj:` = a Translation#conjugation_data hash. %>
+<% pronouns = %w[ik jij hij wij jullie zij] %>
+<% tenses = [["present", "tegenwoordig"], ["past", "verleden"], ["future", "toekomst"]].select { |k, _| conj[k].present? } %>
+<% if tenses.any? %>
+  <div class="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800">
+    <table class="w-full border-collapse text-sm">
+      <thead>
+        <tr class="bg-gray-50 text-left text-[11px] uppercase tracking-wide text-gray-500 dark:bg-gray-900 dark:text-gray-400">
+          <th class="px-3 py-1.5 font-medium"></th>
+          <% tenses.each do |key, nl_label| %>
+            <th class="px-3 py-1.5 font-medium"><%= key %> <span class="font-normal normal-case text-gray-400">· <%= nl_label %></span></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% pronouns.each do |p| %>
+          <tr class="border-t border-gray-100 dark:border-gray-800">
+            <td class="px-3 py-1.5 text-gray-400 dark:text-gray-500"><%= p %></td>
+            <% tenses.each do |key, _| %>
+              <td class="px-3 py-1.5 tabular-nums"><%= conj.dig(key, p) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

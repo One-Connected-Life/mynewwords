@@ -1,0 +1,647 @@
+{
+  "title": "'t Is een nacht",
+  "artist": "Guus Meeuwis",
+  "year": 1995,
+  "words": [
+    {
+      "target": "nacht",
+      "source": "night",
+      "article": "de",
+      "etymology": "Old Germanic 'naht', related to English 'night'",
+      "mnemonic": "Night sounds like 'nacht' — nearly identical",
+      "ipa": "nɑxt",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "ster",
+      "source": "star",
+      "article": "de",
+      "etymology": "Old English 'steorra', Proto-Germanic 'sternoj'",
+      "mnemonic": "A star is a stellar ster in the sky",
+      "ipa": "stɛr",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "hemel",
+      "source": "sky / heaven",
+      "article": "de",
+      "etymology": "Old High German 'himil', Proto-Germanic origin",
+      "mnemonic": "Heaven and hemel both start with 'he'",
+      "ipa": "ˈɦeːməl",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "licht",
+      "source": "light",
+      "article": "het",
+      "etymology": "Old Germanic 'leoht', same root as English 'light'",
+      "mnemonic": "Light and licht differ by just one letter",
+      "ipa": "lɪxt",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "hart",
+      "source": "heart",
+      "article": "het",
+      "etymology": "Old Germanic 'herto', cognate with English 'heart'",
+      "mnemonic": "Hart is almost 'heart' minus the 'e'",
+      "ipa": "hɑrt",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "liefde",
+      "source": "love",
+      "article": "de",
+      "etymology": "Middle Dutch 'liefde', from 'lief' meaning dear",
+      "mnemonic": "Liefde — feel the 'lief' warmth of love",
+      "ipa": "ˈlifdə",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "stad",
+      "source": "city / town",
+      "article": "de",
+      "etymology": "Old Germanic 'stad', related to English 'stead'",
+      "mnemonic": "A city is a steady place — stad",
+      "ipa": "stɑt",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "regen",
+      "source": "rain",
+      "article": "de",
+      "etymology": "Old High German 'regan', Proto-Germanic root",
+      "mnemonic": "Regen sounds like 'raining' region",
+      "ipa": "ˈreːɣən",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "straat",
+      "source": "street",
+      "article": "de",
+      "etymology": "Latin 'strata via', paved road",
+      "mnemonic": "Straat is straight like a street",
+      "ipa": "straːt",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "moment",
+      "source": "moment",
+      "article": "het",
+      "etymology": "Latin 'momentum', movement, instant",
+      "mnemonic": "Moment is identical in English and Dutch",
+      "ipa": "moːˈmɛnt",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "gevoel",
+      "source": "feeling / emotion",
+      "article": "het",
+      "etymology": "Middle Dutch, from 'voelen' — to feel",
+      "mnemonic": "Gevoel — 'feel' hides inside the word",
+      "ipa": "ɣəˈvul",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "tijd",
+      "source": "time",
+      "article": "de",
+      "etymology": "Old Germanic 'tid', related to English 'tide'",
+      "mnemonic": "Tide and tijd — time flows like water",
+      "ipa": "tɛit",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "stem",
+      "source": "voice",
+      "article": "de",
+      "etymology": "Middle Dutch 'stemme', Old Germanic origin",
+      "mnemonic": "A stem holds up a voice like a flower stalk",
+      "ipa": "stɛm",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "droom",
+      "source": "dream",
+      "article": "de",
+      "etymology": "Old Germanic 'draugmas', related to English 'dream'",
+      "mnemonic": "Droom rhymes with 'room' — dream of a room",
+      "ipa": "droːm",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "wereld",
+      "source": "world",
+      "article": "de",
+      "etymology": "Old English 'weorold', age of man",
+      "mnemonic": "Wereld — world swirled into Dutch spelling",
+      "ipa": "ˈʋeːrəlt",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "mooi",
+      "source": "beautiful / nice",
+      "article": null,
+      "etymology": "Middle Dutch 'mooi', origin uncertain",
+      "mnemonic": "Say 'moooi' slowly — it sounds beautiful",
+      "ipa": "moːi",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "stil",
+      "source": "quiet / still",
+      "article": null,
+      "etymology": "Old Germanic 'stilli', related to English 'still'",
+      "mnemonic": "Still and stil — quiet and motionless",
+      "ipa": "stɪl",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "samen",
+      "source": "together",
+      "article": null,
+      "etymology": "Middle Dutch 'samen', from 'sa-' prefix meaning same",
+      "mnemonic": "Same people — samen, together",
+      "ipa": "ˈsaːmə(n)",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "alleen",
+      "source": "alone / only",
+      "article": null,
+      "etymology": "Middle Dutch 'al een', all one — entirely alone",
+      "mnemonic": "All one = alleen — one person alone",
+      "ipa": "ɑˈleːn",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "zacht",
+      "source": "soft / gentle",
+      "article": null,
+      "etymology": "Middle Dutch 'sacht', Proto-Germanic origin",
+      "mnemonic": "Soft sounds need no harsh 'ch' — zacht",
+      "ipa": "zɑxt",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "ver",
+      "source": "far / distant",
+      "article": null,
+      "etymology": "Old Germanic 'ferro', cognate with English 'far'",
+      "mnemonic": "Very far away — ver means far",
+      "ipa": "vɛr",
+      "verb": false,
+      "conjugation": null
+    },
+    {
+      "target": "voelen",
+      "source": "to feel",
+      "article": null,
+      "etymology": "Middle Dutch 'voelen', Proto-Germanic origin",
+      "mnemonic": "Voelen — feel the vowels in this word",
+      "ipa": "ˈvulən",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "voelen",
+        "present": {
+          "ik": "voel",
+          "jij": "voelt",
+          "hij": "voelt",
+          "wij": "voelen",
+          "jullie": "voelen",
+          "zij": "voelen"
+        },
+        "past": {
+          "ik": "voelde",
+          "jij": "voelde",
+          "hij": "voelde",
+          "wij": "voelden",
+          "jullie": "voelden",
+          "zij": "voelden"
+        },
+        "future": {
+          "ik": "zal voelen",
+          "jij": "zal voelen",
+          "hij": "zal voelen",
+          "wij": "zullen voelen",
+          "jullie": "zullen voelen",
+          "zij": "zullen voelen"
+        }
+      }
+    },
+    {
+      "target": "dromen",
+      "source": "to dream",
+      "article": null,
+      "etymology": "Old Germanic root, cognate with English 'dream'",
+      "mnemonic": "Dromen — dream of Rome at night",
+      "ipa": "ˈdroːmən",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "dromen",
+        "present": {
+          "ik": "droom",
+          "jij": "droomt",
+          "hij": "droomt",
+          "wij": "dromen",
+          "jullie": "dromen",
+          "zij": "dromen"
+        },
+        "past": {
+          "ik": "droomde",
+          "jij": "droomde",
+          "hij": "droomde",
+          "wij": "droomden",
+          "jullie": "droomden",
+          "zij": "droomden"
+        },
+        "future": {
+          "ik": "zal dromen",
+          "jij": "zal dromen",
+          "hij": "zal dromen",
+          "wij": "zullen dromen",
+          "jullie": "zullen dromen",
+          "zij": "zullen dromen"
+        }
+      }
+    },
+    {
+      "target": "lopen",
+      "source": "to walk",
+      "article": null,
+      "etymology": "Old Germanic 'hlaupan', related to English 'leap'",
+      "mnemonic": "Lopen — loop around the block walking",
+      "ipa": "ˈloːpən",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "lopen",
+        "present": {
+          "ik": "loop",
+          "jij": "loopt",
+          "hij": "loopt",
+          "wij": "lopen",
+          "jullie": "lopen",
+          "zij": "lopen"
+        },
+        "past": {
+          "ik": "liep",
+          "jij": "liep",
+          "hij": "liep",
+          "wij": "liepen",
+          "jullie": "liepen",
+          "zij": "liepen"
+        },
+        "future": {
+          "ik": "zal lopen",
+          "jij": "zal lopen",
+          "hij": "zal lopen",
+          "wij": "zullen lopen",
+          "jullie": "zullen lopen",
+          "zij": "zullen lopen"
+        }
+      }
+    },
+    {
+      "target": "kijken",
+      "source": "to look / to watch",
+      "article": null,
+      "etymology": "Middle Dutch 'kiken', Proto-Germanic origin",
+      "mnemonic": "Kijken — keen eyes look around",
+      "ipa": "ˈkɛikən",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "kijken",
+        "present": {
+          "ik": "kijk",
+          "jij": "kijkt",
+          "hij": "kijkt",
+          "wij": "kijken",
+          "jullie": "kijken",
+          "zij": "kijken"
+        },
+        "past": {
+          "ik": "keek",
+          "jij": "keek",
+          "hij": "keek",
+          "wij": "keken",
+          "jullie": "keken",
+          "zij": "keken"
+        },
+        "future": {
+          "ik": "zal kijken",
+          "jij": "zal kijken",
+          "hij": "zal kijken",
+          "wij": "zullen kijken",
+          "jullie": "zullen kijken",
+          "zij": "zullen kijken"
+        }
+      }
+    },
+    {
+      "target": "houden van",
+      "source": "to love / to be fond of",
+      "article": null,
+      "etymology": "Middle Dutch 'houden', to hold — hold someone dear",
+      "mnemonic": "Hold someone — houden van means to love",
+      "ipa": "ˈɦɑudən vɑn",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "houden van",
+        "present": {
+          "ik": "hou van",
+          "jij": "houdt van",
+          "hij": "houdt van",
+          "wij": "houden van",
+          "jullie": "houden van",
+          "zij": "houden van"
+        },
+        "past": {
+          "ik": "hield van",
+          "jij": "hield van",
+          "hij": "hield van",
+          "wij": "hielden van",
+          "jullie": "hielden van",
+          "zij": "hielden van"
+        },
+        "future": {
+          "ik": "zal houden van",
+          "jij": "zal houden van",
+          "hij": "zal houden van",
+          "wij": "zullen houden van",
+          "jullie": "zullen houden van",
+          "zij": "zullen houden van"
+        }
+      }
+    },
+    {
+      "target": "denken",
+      "source": "to think",
+      "article": null,
+      "etymology": "Old Germanic 'thenkjan', cognate with English 'think'",
+      "mnemonic": "Think — denken sounds like 'think-en'",
+      "ipa": "ˈdɛŋkən",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "denken",
+        "present": {
+          "ik": "denk",
+          "jij": "denkt",
+          "hij": "denkt",
+          "wij": "denken",
+          "jullie": "denken",
+          "zij": "denken"
+        },
+        "past": {
+          "ik": "dacht",
+          "jij": "dacht",
+          "hij": "dacht",
+          "wij": "dachten",
+          "jullie": "dachten",
+          "zij": "dachten"
+        },
+        "future": {
+          "ik": "zal denken",
+          "jij": "zal denken",
+          "hij": "zal denken",
+          "wij": "zullen denken",
+          "jullie": "zullen denken",
+          "zij": "zullen denken"
+        }
+      }
+    },
+    {
+      "target": "zingen",
+      "source": "to sing",
+      "article": null,
+      "etymology": "Old Germanic 'singan', identical root to English 'sing'",
+      "mnemonic": "Zinging — zingen sounds like singing with a buzz",
+      "ipa": "ˈzɪŋən",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "zingen",
+        "present": {
+          "ik": "zing",
+          "jij": "zingt",
+          "hij": "zingt",
+          "wij": "zingen",
+          "jullie": "zingen",
+          "zij": "zingen"
+        },
+        "past": {
+          "ik": "zong",
+          "jij": "zong",
+          "hij": "zong",
+          "wij": "zongen",
+          "jullie": "zongen",
+          "zij": "zongen"
+        },
+        "future": {
+          "ik": "zal zingen",
+          "jij": "zal zingen",
+          "hij": "zal zingen",
+          "wij": "zullen zingen",
+          "jullie": "zullen zingen",
+          "zij": "zullen zingen"
+        }
+      }
+    },
+    {
+      "target": "staan",
+      "source": "to stand",
+      "article": null,
+      "etymology": "Old Germanic 'staan', cognate with English 'stand'",
+      "mnemonic": "Stan stands — staan means to stand",
+      "ipa": "staːn",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "staan",
+        "present": {
+          "ik": "sta",
+          "jij": "staat",
+          "hij": "staat",
+          "wij": "staan",
+          "jullie": "staan",
+          "zij": "staan"
+        },
+        "past": {
+          "ik": "stond",
+          "jij": "stond",
+          "hij": "stond",
+          "wij": "stonden",
+          "jullie": "stonden",
+          "zij": "stonden"
+        },
+        "future": {
+          "ik": "zal staan",
+          "jij": "zal staan",
+          "hij": "zal staan",
+          "wij": "zullen staan",
+          "jullie": "zullen staan",
+          "zij": "zullen staan"
+        }
+      }
+    },
+    {
+      "target": "vergeten",
+      "source": "to forget",
+      "article": null,
+      "etymology": "Middle Dutch 'vergeten', prefix 'ver-' plus 'geten' — to get away",
+      "mnemonic": "Forget — ver-geten, something gotten away from you",
+      "ipa": "vərˈɣeːtən",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "vergeten",
+        "present": {
+          "ik": "vergeet",
+          "jij": "vergeet",
+          "hij": "vergeet",
+          "wij": "vergeten",
+          "jullie": "vergeten",
+          "zij": "vergeten"
+        },
+        "past": {
+          "ik": "vergat",
+          "jij": "vergat",
+          "hij": "vergat",
+          "wij": "vergaten",
+          "jullie": "vergaten",
+          "zij": "vergaten"
+        },
+        "future": {
+          "ik": "zal vergeten",
+          "jij": "zal vergeten",
+          "hij": "zal vergeten",
+          "wij": "zullen vergeten",
+          "jullie": "zullen vergeten",
+          "zij": "zullen vergeten"
+        }
+      }
+    },
+    {
+      "target": "wachten",
+      "source": "to wait",
+      "article": null,
+      "etymology": "Middle Dutch 'wachten', to watch and wait",
+      "mnemonic": "Watch and wait — wachten means to wait",
+      "ipa": "ˈʋɑxtən",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "wachten",
+        "present": {
+          "ik": "wacht",
+          "jij": "wacht",
+          "hij": "wacht",
+          "wij": "wachten",
+          "jullie": "wachten",
+          "zij": "wachten"
+        },
+        "past": {
+          "ik": "wachtte",
+          "jij": "wachtte",
+          "hij": "wachtte",
+          "wij": "wachtten",
+          "jullie": "wachtten",
+          "zij": "wachtten"
+        },
+        "future": {
+          "ik": "zal wachten",
+          "jij": "zal wachten",
+          "hij": "zal wachten",
+          "wij": "zullen wachten",
+          "jullie": "zullen wachten",
+          "zij": "zullen wachten"
+        }
+      }
+    },
+    {
+      "target": "herinneren",
+      "source": "to remember",
+      "article": null,
+      "etymology": "Middle Dutch, from 'binnen' — inner, to bring inside mind",
+      "mnemonic": "Her inner memory — herinneren means to remember",
+      "ipa": "ɦəˈrɪnərən",
+      "verb": true,
+      "conjugation": {
+        "infinitive": "herinneren",
+        "present": {
+          "ik": "herinner",
+          "jij": "herinnert",
+          "hij": "herinnert",
+          "wij": "herinneren",
+          "jullie": "herinneren",
+          "zij": "herinneren"
+        },
+        "past": {
+          "ik": "herinnerde",
+          "jij": "herinnerde",
+          "hij": "herinnerde",
+          "wij": "herinnerden",
+          "jullie": "herinnerden",
+          "zij": "herinnerden"
+        },
+        "future": {
+          "ik": "zal herinneren",
+          "jij": "zal herinneren",
+          "hij": "zal herinneren",
+          "wij": "zullen herinneren",
+          "jullie": "zullen herinneren",
+          "zij": "zullen herinneren"
+        }
+      }
+    }
+  ],
+  "sentences": [
+    {
+      "nl": "Vanavond kijk ik naar de sterren in de stille hemel.",
+      "en": "Tonight I look at the stars in the quiet sky."
+    },
+    {
+      "nl": "Wij lopen samen door de natte straten van de stad.",
+      "en": "We walk together through the wet streets of the city."
+    },
+    {
+      "nl": "Mijn hart voelt warm als jij naast mij staat.",
+      "en": "My heart feels warm when you stand beside me."
+    },
+    {
+      "nl": "Hij droomt elke nacht van een mooie, verre wereld.",
+      "en": "He dreams every night of a beautiful, distant world."
+    },
+    {
+      "nl": "Ik hou van de zachte regen op een koude avond.",
+      "en": "I love the gentle rain on a cold evening."
+    },
+    {
+      "nl": "Zij zingt zacht, en haar stem is heel mooi.",
+      "en": "She sings softly, and her voice is very beautiful."
+    },
+    {
+      "nl": "Wij wachten samen op het juiste moment.",
+      "en": "We wait together for the right moment."
+    },
+    {
+      "nl": "Ik wil dit gevoel nooit vergeten.",
+      "en": "I never want to forget this feeling."
+    }
+  ]
+}

@@ -223,6 +223,9 @@ class DrillsController < ApplicationController
       # [ETYMOLOGY] etymology + mnemonic shown on reveal (nil when absent → omit block)
       etymology: target_translation&.etymology.presence,
       mnemonic: target_translation&.mnemonic.presence,
+      # [SONG] verb conjugation table (present/past/future × pronouns), shown on
+      # reveal for song-deck verbs. nil for non-verbs → block omitted.
+      conjugation: term.translations.detect(&:verb?)&.conjugation_data,
       # PHONETICS: IPA + translit for the answer (TO) word
       answer_ipa: answer.ipa,
       answer_translit: answer.translit,
